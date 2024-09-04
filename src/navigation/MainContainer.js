@@ -39,7 +39,7 @@ const MainContainer = () => {
       <Tab.Navigator
         initialRouteName= {userToken? {homeName} : {loginName}}
         screenOptions={({ route }) => ({
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: '#4491FE',
           tabBarInactiveTintColor: 'grey',
           unmountOnBlur:true,
           headerShown: false,  
