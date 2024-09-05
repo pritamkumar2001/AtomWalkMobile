@@ -12,7 +12,7 @@ const NewButton = ({title, icon, onPress = () => {}}) => {
       style={{
         height: 55,
         width: '100%',
-        backgroundColor: colors.secondary,
+        backgroundColor: '#5B3DDE',
         marginVertical: 20,
         justifyContent: 'center',
         flexDirection:'row',

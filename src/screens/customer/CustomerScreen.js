@@ -85,8 +85,8 @@ const CustomerScreen = ({ navigation }) => {
             />
             </View>
             <View style={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0, zIndex: -1,}}>
-                <View style={{ height: 236, backgroundColor: colors.darkgrey }} />
-                <View style={{ flex: 1, backgroundColor: colors.grey }} />
+                <View style={{ height: 236, backgroundColor: '#fffff' }} />
+                <View style={{ flex: 1, backgroundColor: '#fffff' }} />
             </View>
       
         </View>

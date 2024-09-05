@@ -65,7 +65,9 @@ const TxtInput = ({
 const style = StyleSheet.create({
   label: {
     marginVertical: 3,
-    fontSize: 12,
+    fontSize: 20,
+    fontWeight: '400',
+    marginLeft: 5,
     color: colors.black,
   },
   inputContainer: {

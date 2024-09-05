@@ -89,14 +89,21 @@ const TaskScreen = ({ route, navigation }) => {
           setSelectedIndex(value);
           getTask(value);
         }}
-        containerStyle={{ marginBottom: 10, marginHorizontal: 10, backgroundColor:'transparent'}}
         buttonStyle={{
-          backgroundColor: colors.grey,
-          borderColor: 'transparent',
-          borderWidth: 0,
+          backgroundColor: colors.white,
+          borderColor: '#454545',
+          borderWidth: 1,
           borderRadius: 25,
         }}
-        selectedButtonStyle={{backgroundColor: colors.darkred}}
+        containerStyle={{
+          marginBottom: 10,
+          marginHorizontal: 10,
+          backgroundColor: 'transparent',
+          borderWidth: 0,           
+          borderColor: 'transparent',
+          gap:1 
+        }}
+        selectedButtonStyle={{backgroundColor: '#4491FE'}}
         buttonContainerStyle={{borderColor: 'transparent', borderWidth: 0,}}
       />
       <SearchInput label='Search ...'
@@ -108,7 +115,7 @@ const TaskScreen = ({ route, navigation }) => {
           data={filterData}
           renderItem={({ item }) => <CardItem data={item} 
                                               navigation={navigation} 
-                                              colour={colors.yellow}
+                                              colour={colors.blue}
                                               icon='assignment-ind'
                                               handleIconPress={handleIconPress}
                                               handleDisplayPress={()=>{}}
@@ -133,7 +140,7 @@ const TaskScreen = ({ route, navigation }) => {
         }}
       >
         { filterData.length > 0 && (    
-          <View style={{ height: 260, backgroundColor: colors.lightblue }} />
+          <View style={{ height: 260, backgroundColor: colors.white }} />
           
           )}
         { filterData.length == 0 && (   
@@ -144,14 +151,14 @@ const TaskScreen = ({ route, navigation }) => {
           </>
           )}
       
-        <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+        <View style={{ flex: 1, backgroundColor: colors.white }} />
       </View>
          
     </View>
     <CustomButton 
             onPress={() => navigation.navigate("AddTask", {'task':''})} 
             text={'Add Task'} 
-            bgColor={colors.primary} />  
+            bgColor={'#4491FE'} />  
   </SafeAreaView>
   );
     

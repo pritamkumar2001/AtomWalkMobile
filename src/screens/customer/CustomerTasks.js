@@ -126,7 +126,7 @@ const CustomerTasks = ({ route, navigation }) => {
         }}
       >
         { filterData.length > 0 && (
-            <View style={{ height: 260, backgroundColor: colors.lightblue }} />
+            <View style={{ height: 260, backgroundColor: colors.white }} />
         )}
 
         { filterData.length == 0 && (   

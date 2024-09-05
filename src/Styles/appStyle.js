@@ -44,7 +44,7 @@ export const HeaderView = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${colors.navyblue};
+  background-color: ${colors.white};
 `;
 
 export const HeaderSubTitle = styled.View`
@@ -60,7 +60,7 @@ export const HeaderSubTitle = styled.View`
 export const HeaderTitle = styled.Text`
   font-size: 30px;
   font-weight: bold;
-  color: ${colors.lightyellow};
+  color: ${colors.black};
   letter-spacing: 1px;
 `;
 export const HeaderTitleLong = styled.Text`

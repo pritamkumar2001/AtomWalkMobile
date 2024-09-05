@@ -94,7 +94,7 @@ const AddCustomerTask = ({route, navigation}) => {
     };
 
   return (
-    <SafeAreaView style={{backgroundColor: colors.primary, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <Loader visible={loading} /> 
       <Header 
             label='Create Task'
