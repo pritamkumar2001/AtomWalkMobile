@@ -53,7 +53,7 @@ export const HeaderSubTitle = styled.View`
   padding-left: 20px;
   justify-content: space-between;
   align-items: center;
-  background-color: ${colors.white};
+  /* background-color: ${colors.white}; */
   color:${colors.black};
 `;
 

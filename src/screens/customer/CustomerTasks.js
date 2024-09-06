@@ -126,7 +126,7 @@ const CustomerTasks = ({ route, navigation }) => {
         }}
       >
         { filterData.length > 0 && (
-            <View style={{ height: 260, backgroundColor: colors.white }} />
+            <View style={{ height: 260, backgroundColor: '#f2f2f2 '}} />
         )}
 
         { filterData.length == 0 && (   
@@ -137,7 +137,7 @@ const CustomerTasks = ({ route, navigation }) => {
           </>
         )}
       
-        <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+        <View style={{ flex: 1, backgroundColor: '#f2f2f2' }} />
         </View>
          
     </View>
