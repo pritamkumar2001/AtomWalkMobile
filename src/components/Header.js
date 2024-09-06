@@ -31,7 +31,7 @@ const Header = ({label, image, long, icon, onPress, subTitle}) => {
       
       <HeaderButton 
         onPress={onPress}>
-        <Entypo name={icon} size={30} color={colors.secondary} />
+        <Entypo name={icon} size={30} color={'#4491FE'} />
       </HeaderButton>
       
     </HeaderView>

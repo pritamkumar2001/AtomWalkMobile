@@ -112,6 +112,7 @@ const TaskScreen = ({ route, navigation }) => {
     <View style={{ flex: 1}}>
       <View style={{ zIndex: 0 }}>
         <FlatList
+        style={{backgroundColor:'#f2f2f2'}}
           data={filterData}
           renderItem={({ item }) => <CardItem data={item} 
                                               navigation={navigation} 
@@ -140,18 +141,18 @@ const TaskScreen = ({ route, navigation }) => {
         }}
       >
         { filterData.length > 0 && (    
-          <View style={{ height: 260, backgroundColor: colors.white }} />
+          <View style={{ height: 260, backgroundColor: "#f2f2f2" }} />
           
           )}
         { filterData.length == 0 && (   
           <> 
-          <View style={{ height: '100%', backgroundColor: colors.white, alignItems:'center' }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop:15, color:colors.red}}> NO records found ! </Text>
+          <View style={{ height: '100%', backgroundColor: 'transparent', alignItems:'center', display:"flex",justifyContent:'center'}}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop:15, color:colors.red}}> No records found ! </Text>
           </View>
           </>
           )}
       
-        <View style={{ flex: 1, backgroundColor: colors.white }} />
+        <View style={{ flex: 1, backgroundColor: '#f2f2f2' }} />
       </View>
          
     </View>

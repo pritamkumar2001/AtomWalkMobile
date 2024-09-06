@@ -32,7 +32,7 @@ const ListItems = ({todos, setTodos, handleTriggerEdit, navigation }) => {
             const RowText = data.item.key == swipedRow ? SwipedTodoText : TodoText;
             return(
                 <ListView
-                    underlayColor={colors.primary}
+                    underlayColor={colors.white}
                     onPress={() => {
                         handleTriggerEdit(data.item)
                     }}
@@ -41,14 +41,12 @@ const ListItems = ({todos, setTodos, handleTriggerEdit, navigation }) => {
                         <RowText>{data.item.title}</RowText>
                         <TodoDate>{data.item.date}</TodoDate>
                         <ListRowView>
-                        <>
                         <ListButton onPress={() => navigation.navigate("AddLead", {task: data.item.title},)}>
-                            <Ionicons name="person-add" size={24} color={colors.secondary} />
+                            <Ionicons name="person-add" size={24} color={'#4491FE'} />
                         </ListButton>
                         <ListButton onPress={() => navigation.navigate("AddTodoTask", {task: data.item.title},)}>
-                            <MaterialIcons name="add-task" size={24} color={colors.tertiary} />
+                            <MaterialIcons name="add-task" size={24} color={'#4491FE'}  />
                         </ListButton>
-                        </>
                         </ListRowView>
                     </>    
                 </ListView>
@@ -62,7 +60,7 @@ const ListItems = ({todos, setTodos, handleTriggerEdit, navigation }) => {
                     <HiddenButton
                         onPress={() => handleDeleteTodo(rowMap, data.item.key)}
                     >
-                    <Ionicons name="trash" size={25} color={colors.secondary} />
+                    <Ionicons name="trash" size={25} color={'#4491FE'} />
                     </HiddenButton>
                     
                 </ListViewHidden>
@@ -76,7 +74,7 @@ const ListItems = ({todos, setTodos, handleTriggerEdit, navigation }) => {
         disableLeftSwipe={true}
         showsVerticalScrollIndicator={false}
         style={{
-            flex: 1, paddingBottom: 30, marginBottom: 40
+            flex: 1, paddingBottom: 30, marginBottom: 40,margin:8,
         }}
         onRowOpen={(rowKey) => {
             setSwipedRow(rowKey);

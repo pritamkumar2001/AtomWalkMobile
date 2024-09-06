@@ -92,8 +92,8 @@ const CustTaskInterest = ({ route, navigation }) => {
       >
         { interest.length == 0 && (   
           <> 
-          <View style={{ height: '100%', backgroundColor: colors.white, alignItems: 'center' }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop:15, color:colors.red}}> NO records found ! </Text>
+          <View style={{ height: '100%', backgroundColor: 'transparent', alignItems: 'center' }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop:15, color:colors.red}}> No records found ! </Text>
           </View>
           </>
         )}

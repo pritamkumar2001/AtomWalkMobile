@@ -54,7 +54,7 @@ const InputModal = ({
     return (
     <>
         <ModalButton onPress={() => {setModalVisible(true)}}>
-            <AntDesign name="plus" size={30} color={colors.primary} />
+            <AntDesign name="plus" size={30} color={'#4491FE'} />
         </ModalButton>
         <Modal
             animationType="slide"

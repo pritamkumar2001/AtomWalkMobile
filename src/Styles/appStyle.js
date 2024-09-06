@@ -96,7 +96,8 @@ export const ListContainer = styled.View`
 `;
 
 export const ListView = styled.TouchableHighlight`
-  background-color: ${colors.primary};
+  background-color: ${colors.white};
+  color: #454545;
   min-height: 85px;
   width: 100%;
   padding: 15px;
@@ -106,16 +107,9 @@ export const ListView = styled.TouchableHighlight`
 `;
 
 export const ListRowView = styled.View`
-  background-color: ${colors.black};
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-end;
-  margin-left: auto;
-  width: 50%;
-  min-height: 45px;
-  margin-top: 10px;
-  margin-bottom: 3px;
-  border-radius: 10px;
+flex-direction: row;
+justify-content: flex-end;
+margin-top: 20px;
 `;
 
 export const ListViewHidden = styled.View`
@@ -144,13 +138,14 @@ export const HiddenButton = styled.TouchableOpacity`
 export const TodoText = styled.Text`
   font-size: 18px;
   letter-spacing: 1px;
-  color: ${colors.white};
+  font-weight: 500;
+  color: ${colors.black};
 `;
 
 export const TodoDate = styled.Text`
   font-size: 10px;
   letter-spacing: 1px;
-  color: ${colors.white};
+  color: ${colors.black};
   text-align: right;
   text-transform: uppercase;
 `;
