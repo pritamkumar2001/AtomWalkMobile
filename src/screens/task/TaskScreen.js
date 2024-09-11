@@ -19,7 +19,7 @@ const TaskScreen = ({ route, navigation }) => {
   
   useEffect(() => {
     getTask(selectedIndex)
-  }, []);
+  }, [route.params?.refresh]);
 
   const onTaskAddPressed = () => {
     navigation.navigate("AddTask", {'task':''});

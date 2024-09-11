@@ -53,6 +53,7 @@ export const updateTaskInterestURL = `${endpoint}/update_task_interest/${db_name
 export const getOrderListURL = `${endpoint}/order_list/${db_name}/`;
 export const updateTaskURL = `${endpoint}/update_task/${db_name}/`;
 export const updateLeadStatusURL = `${endpoint}/update_lead_status/${db_name}/`;
+export const UpdateGeoLocation = `${endpoint}/update_task_location/${db_name}/`;
 export const getUserListURL = `${endpoint}/user_list/${db_name}/`;
 
 

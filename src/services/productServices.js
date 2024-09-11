@@ -1,5 +1,5 @@
 import { authAxios, authAxiosPost } from "./httpMethod";
-import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL } from "../constants";
+import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL, UpdateGeoLocation } from "../constants";
 import { getTaskInterestListURL, getVariationNameListURL, getProductCategoryListURL } from '../constants';
 import { getOrderListURL, updateTaskInterestURL, getLeadStatusListURL, getTaskTypeListURL } from '../constants';
 import { addTaskURL, updateTaskURL, userTaskListURL, getUserListURL, updateLeadStatusURL} from "../constants";
@@ -123,6 +123,12 @@ export function updateLeadStatus(status_data) {
     data['status_data'] = status_data
     
     return authAxiosPost(updateLeadStatusURL, data);
+}
+export function UpdateGeoLocations(location_data) {
+    let data = {};
+    data['task_location_data'] = location_data
+    
+    return authAxiosPost(UpdateGeoLocation, data);
 }
 
 export function getOrderList(cust_id) {

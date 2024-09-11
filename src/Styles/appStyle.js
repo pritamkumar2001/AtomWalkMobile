@@ -39,7 +39,7 @@ export const Container = styled.SafeAreaView`
 // Header
 export const HeaderView = styled.View`
   padding-vertical: 10px;
-  padding-top: 30px;
+  padding-top: 15px;
   margin-bottom: 10px;
   flex-direction: row;
   justify-content: space-between;

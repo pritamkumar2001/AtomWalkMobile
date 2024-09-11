@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
     const [companyInfo, setCompanyInfo] = useState(null);
     const [dbName, setDbName] = useState(null);
     const [error, setError] = useState('');
+    const [refs,setRefs]=useState(1);
 
     const login = async(username, password) => {
         setIsLoading(true);
@@ -98,7 +99,7 @@ export const AuthProvider = ({children}) => {
     }, []);
 
     return(
-        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error}}>
+        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error,setRefs,refs}}>
             {children}
         </AuthContext.Provider>
     );

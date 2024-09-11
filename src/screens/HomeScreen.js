@@ -125,7 +125,13 @@ const HomeScreen = ({ navigation }) => {
         <StatusBar barStyle="light-content" backgroundColor="#0e4fe8" />
       <AppContainer>
        <Headers  source={Logo}>
-        <ProfileImage source={{ uri: companyInfo?companyInfo?.image:Logos}} />
+       <ProfileImage 
+      source={
+      companyInfo && typeof companyInfo?.image === 'string' 
+      ? { uri: companyInfo.image }  // Remote image URL
+      : Logos  // Local image asset
+          }
+/>
         <Title>{companyInfo?companyInfo.name:''}</Title>
         <NotificationIcon name="notifications-outline" />
         <WelcomeText>Welcome to Atomwalk Office</WelcomeText>

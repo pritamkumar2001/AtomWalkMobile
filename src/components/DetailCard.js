@@ -1,74 +1,93 @@
 import React from "react";
-import { View, Text, Image} from "react-native";
-
+import { View, Text, Image,ScrollView} from "react-native";
+import styled from 'styled-components/native';
 import { SIZES, SHADOWS} from "../constant_s";
 import { SubInfo, CardTitle } from "./SubInfo";
 import { colors } from "../Styles/appStyle";
+import { MaterialIcons } from '@expo/vector-icons';
+const Header = styled.View`
+  background-color: #0548E4;
+  border-radius: 20px;
+  align-items: center;
+  padding: 20px;
+`;
 
-const DetailCard = ({colour, title, subTitle, date, dateTitle, imageUrl, imageLabel, status, statusColour, 
+const ProfilePhotoContainer = styled.View`
+  background-color: #fff;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+const ProfilePhoto = styled.Image`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+`;
+
+const EmailText = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10px;
+`;
+
+const TaskInfo = styled.View`
+  width: 100%;
+  padding: 0 16px;
+`;
+
+const TaskText = styled.Text`
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 5px;
+`;
+
+const Label = styled.Text`
+  font-weight: bold;
+`;
+
+const DetailCard = ({colour, title, subTitle, date, dateTitle, imageUrl, imageLabel, status, statusColour, name,
                      subInfo}) => {
     
     const cardColour = colour ? colour: colors.primary
-    
     return (
-        <View
-        style={{
-          backgroundColor: cardColour,
-          borderRadius: SIZES.font,
-          marginBottom: SIZES.extraLarge,
-          margin: 0,
-          ...SHADOWS.dark,
-        }}
-      >
-        <View style={{width: "100%", height:100,}}>
-            { imageLabel && (
-            <>    
-            <Image
-              source={{ uri: imageUrl }}
-              resizeMode="stretch"
-              style={{
-                width: "20%",
-                height: "70%",
-                borderRadius: SIZES.font,
-                marginTop:10,
-                marginLeft:12,
-                borderTopRightRadius: SIZES.font,
-              }}
-            />
-            <Text
-                style={{
-                    marginTop:5,
-                    marginLeft:12,
-                    fontWeight:'bold',
-                    fontSize:12,
-                    color: colors.black,
-                  }} >{imageLabel}</Text>
-            </>
-            )}
-         
-        </View>    
-        {date && (<SubInfo task_date={date}
-                            dateTitle={dateTitle}/>)}    
-        
-        <View style={{ width: "100%", padding: SIZES.font }}>
-          
-          <CardTitle
-            title={title}
-            subTitle={subTitle}
-            titleSize={SIZES.extraLarge}
-            subTitleSize={SIZES.large}
-          />
+      <Header>
+      <ProfilePhotoContainer>
+        <ProfilePhoto
+          source={{
+            uri: imageUrl, // Placeholder image URL
+          }}
+        />
+      </ProfilePhotoContainer>
+      <EmailText>{imageLabel}</EmailText>
 
-          { subInfo && (
-            <Text style={{paddingVertical:10, fontSize:15,}}>{subInfo}</Text>
-          )}
-
-          { status && (
-            <Text style={{padding:15, fontSize:20, marginTop:10, alignSelf:'center', 
-                          color: colors.white, borderRadius:10}}>STATUS - {status}</Text>
-          )}
-        </View>
-      </View>
+      {/* Task Details Section */}
+      <TaskInfo>
+        <TaskText>
+          <Label>Task Name: </Label>{name}
+        </TaskText>
+       
+        {subInfo&&<TaskText>
+          <Label>Info: </Label>{subInfo}
+        </TaskText>}
+       {status&& <TaskText>
+          <Label>Status: </Label>{status}
+        </TaskText>}
+        {date&&<TaskText>
+          <Label>{dateTitle}: </Label>{date}
+        </TaskText>}
+        <TaskText>
+          {title}
+        </TaskText>
+        <TaskText>
+          {subTitle}
+        </TaskText>
+      </TaskInfo>
+    </Header>
     );
 };
 
