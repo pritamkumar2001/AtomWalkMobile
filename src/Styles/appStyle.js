@@ -45,6 +45,14 @@ export const HeaderView = styled.View`
   justify-content: space-between;
   align-items: center;
   background-color: ${colors.white};
+  /* Shadow for iOS */
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.1;
+  shadow-radius: 3px;
+
+  /* Shadow for Android */
+  elevation: 3;
 `;
 
 export const HeaderSubTitle = styled.View`
@@ -175,11 +183,11 @@ export const ModalContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  background-color: ${colors.primary};
+  background-color: #f2f2f2;
 `;
 
 export const ModalView = styled.View`
-  background-color: ${colors.secondary};
+  background-color: #4491FE;
   border-radius: 20px;
   padding: 35px;
 `;

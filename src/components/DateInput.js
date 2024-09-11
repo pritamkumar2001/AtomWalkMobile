@@ -103,7 +103,7 @@ const DateInput = ({
 const style = StyleSheet.create({
     label: {
       marginVertical: 3,
-      fontSize: 20,
+      fontSize: 15,
       marginLeft: 5,
       fontWeight: '400',
       color: colors.black,

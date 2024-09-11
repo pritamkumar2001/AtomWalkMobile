@@ -114,7 +114,7 @@ const AddTaskScreen = ({route, navigation}) => {
             setLoading(false);
             ToastMsg('Task Added Successfully');
             // delete todo
-            navigation.dispatch(CommonActions.goBack())
+            navigation.navigate('TaskSreen', { refresh: inputs });
             // navigation.navigate('Task');
             })
             .catch((error) => {

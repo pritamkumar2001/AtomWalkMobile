@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     label: {
         marginVertical: 3,
-        fontSize: 12,
+        fontSize: 15,
         color: colors.black,
     },
     placeholderStyle: {

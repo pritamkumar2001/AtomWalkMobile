@@ -155,7 +155,7 @@ const UpdateTaskScreen = ({route, navigation}) => {
     };
 
   return (
-    <SafeAreaView style={{backgroundColor: colors.primary, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <Loader visible={loading} /> 
       <Header 
             label={inputs.id? 'Update Task': 'Create Task'}
@@ -221,7 +221,7 @@ const UpdateTaskScreen = ({route, navigation}) => {
                 onPress={validate} 
                 text={(callMode == 'Update')?'Update Task': (callMode == 'AssignUser')? 'Assign To User': 'Mark Completed'} 
                 bgColor={(callMode == 'Update')? colors.secondary: (callMode == 'AssignUser')? colors.red: colors.green}
-                icon={(callMode == 'Update')? 'edit': (callMode == 'AssignUser')? 'assignment-ind': 'done-all'}
+                // icon={(callMode == 'Update')? 'edit': (callMode == 'AssignUser')? 'assignment-ind': 'done-all'}
                 
             /> 
             

@@ -22,7 +22,7 @@ const RadioInput = ({
     return (
         <View style={{marginBottom: 10}}>
             {label && (
-            <Text style={style.label}>{label}</Text>
+            <Text style={style.labels}>{label}</Text>
             )}  
       
             <View style={[
@@ -61,9 +61,9 @@ const RadioInput = ({
 };
 
 const style = StyleSheet.create({
-    label: {
+    labels: {
       marginVertical: 3,
-      fontSize: 12,
+      fontSize: 15,
       color: colors.black,
     },
     inputContainer: {

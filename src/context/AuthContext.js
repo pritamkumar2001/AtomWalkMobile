@@ -35,7 +35,12 @@ export const AuthProvider = ({children}) => {
             isError = true
             // console.log('Login', err)
             setError(`Unable to Authenticate : ${err}`)
-            Alert.alert(`Unable to Authenticate : ${err}`)
+            Alert.alert(
+                '❌ Incorrect E-mail ID or password', // Adding a cross icon using emoji
+                '', // Empty message (if needed)
+                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                { cancelable: true }
+              );
         }
 
         if (!isError){

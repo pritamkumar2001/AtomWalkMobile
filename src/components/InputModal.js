@@ -80,10 +80,10 @@ const InputModal = ({
             />
             <ModalActionGroup>
                 <ModalAction color={colors.tertiary} onPress={handleCloseModal}>
-                    <AntDesign name="close" size={28} color={colors.secondary} />
+                    <AntDesign name="close" size={28} color={colors.red} />
                 </ModalAction>
-                <ModalAction color={colors.primary} onPress={handleSubmit}>
-                    <AntDesign name="check" size={28} color={colors.white} />
+                <ModalAction color={colors.tertiary} onPress={handleSubmit}>
+                    <AntDesign name="check" size={28} color={colors.green} />
                 </ModalAction>
             </ModalActionGroup>
             </ModalView>

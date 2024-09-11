@@ -157,6 +157,10 @@ const HomeScreen = ({ navigation }) => {
           <Icon name="people-outline" size={30} color="#0e4fe8" />
           <ListText>My Customers</ListText>
         </ListItem>
+        <ListItem onPress={() => navigation.navigate('LeadScreen')}>
+          <Icon name="trending-up-outline" size={30} color="#0e4fe8" />
+          <ListText>My Leads</ListText>
+        </ListItem>
         <ListItem onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
           <Icon name="file-tray-full-outline" size={30} color="#0e4fe8" />
           <ListText>Invoice Status</ListText>
@@ -164,10 +168,6 @@ const HomeScreen = ({ navigation }) => {
         <ListItem onPress={() => navigation.navigate('Company')}>
           <Icon name="business-outline" size={30} color="#0e4fe8" />
           <ListText>Company Info</ListText>
-        </ListItem>
-        <ListItem onPress={() => navigation.navigate('LeadScreen')}>
-          <Icon name="trending-up-outline" size={30} color="#0e4fe8" />
-          <ListText>My Leads</ListText>
         </ListItem>
       </ListContainer>
     </AppContainer>

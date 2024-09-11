@@ -237,6 +237,28 @@ console.log("location",location)
                     name={data.name}
         />
     <ButtonSection>
+    {companyInfo.is_geo_start_location&& <ActionButton onPress={()=>getLocation("S" ,"You have successfully start in your location!")}>
+            <MaterialIcons name="timer" size={24} color="#0548E4" />
+            <ButtonText>Start In</ButtonText>
+          </ActionButton>}
+          {(data.geo_status=="I"||data.geo_status=="O")&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")? 
+          <ActionButton1  onPress={()=>handleCheckIn()}>
+            <MaterialIcons name="location-on" size={24} color="#fff" />
+            <View>
+            <ButtonText1>Checked In at {data && data.geo_data[data.geo_data.some(item => item.geo_type =='S')?1:0]?.time.slice(0,5)}</ButtonText1>
+            {/* <ButtonText1>time:{data && data.geo_data[data.geo_status=="I"?0:1]?.time}</ButtonText1> */}
+            </View>
+          </ActionButton1>:
+          (companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")&&<ActionButton  onPress={()=>getLocation("I","You have successfully checked in your location!")}>
+          <MaterialIcons name="location-on" size={24} color="#0548E4" />
+          <ButtonText>Check In</ButtonText>
+        </ActionButton>}
+          {data.geo_status=="I"&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C") ?<ActionButton onPress={()=>getLocation("O","You have successfully checked out your location!")}>
+            <MaterialIcons name="logout" size={24} color="#0548E4" />
+            <ButtonText>Check Out</ButtonText>
+          </ActionButton>:data.geo_status=="O"&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")&& <ActionButton1 onPress={()=>alert("You have already checked out your location!")}>
+            <MaterialIcons name="logout" size={24} color="#fff" />
+            <ButtonText1>Checked out at {data&& data.geo_data[data.geo_data.length-1]?.time.slice(0,5)}</ButtonText1></ActionButton1>}
     <ActionButton onPress={handleUpadteTask}>
             <MaterialIcons name="edit" size={24} color="#0548E4" />
             <ButtonText>Update task</ButtonText>
@@ -249,28 +271,6 @@ console.log("location",location)
             <MaterialIcons name="person-add" size={24} color="#0548E4" />
             <ButtonText>Assign To User</ButtonText>
           </ActionButton>
-          {/* <ActionButton onPress={()=>getLocation("S")}>
-            <MaterialIcons name="timer" size={24} color="#0548E4" />
-            <ButtonText>Start In</ButtonText>
-          </ActionButton> */}
-          {(data.geo_status=="I"||data.geo_status=="O")? 
-          <ActionButton1  onPress={()=>handleCheckIn()}>
-            <MaterialIcons name="location-on" size={24} color="#fff" />
-            <View>
-            <ButtonText1>Checked In Location </ButtonText1>
-            <ButtonText1>time:{data && data.geo_data[data.geo_status=="I"?0:1]?.time}</ButtonText1>
-            </View>
-          </ActionButton1>:
-          <ActionButton  onPress={()=>getLocation("I","You have successfully checked in your location!")}>
-          <MaterialIcons name="location-on" size={24} color="#0548E4" />
-          <ButtonText>Check In</ButtonText>
-        </ActionButton>}
-          {data.geo_status=="I" ?<ActionButton onPress={()=>getLocation("O","You have successfully checked out your location!")}>
-            <MaterialIcons name="logout" size={24} color="#0548E4" />
-            <ButtonText>Check Out</ButtonText>
-          </ActionButton>:data.geo_status=="O"&& <ActionButton onPress={()=>alert("You have already checked out your location!")}>
-            <MaterialIcons name="logout" size={24} color="#0548E4" />
-            <ButtonText>Check Out</ButtonText></ActionButton>}
           </ButtonSection>
       </View> }
       {showMap && location && (
