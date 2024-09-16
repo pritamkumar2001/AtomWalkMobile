@@ -6,13 +6,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import LoginScreen from '../screens/AuthScreen';
-import { HomeStackScreen, ProfileStackScreen, TaskStackScreen, TodoStackScreen } from './MyStackContainers';
+import { HomeStackScreen, MTaskStackScreen, ProfileStackScreen, TaskStackScreen, TodoStackScreen } from './MyStackContainers';
 import Toast from 'react-native-toast-message';
 import ToastMsg from '../components/ToastMsg';
 
 //Screen names
 const homeName = "Home";
-const taskName = "Task";
+const taskName = "My Task";
+const mtaskName = "User Task";
 const profileName = "Profile";
 const loginName = "Login";
 const todoName = "Todo";
@@ -52,6 +53,8 @@ const MainContainer = () => {
 
             } else if (rn === taskName) {
               iconName = focused ? 'list' : 'list-outline';
+            }else if (rn === mtaskName) {
+              iconName = focused ? 'create-outline' : 'create-outline';
             } else if (rn === todoName) {
               iconName = focused ? 'code-working' : 'code-working-outline';
 
@@ -73,6 +76,7 @@ const MainContainer = () => {
             <>
             <Tab.Screen name={homeName} component={HomeStackScreen} />
             <Tab.Screen name={taskName} component={TaskStackScreen} />
+            <Tab.Screen name={mtaskName} component={MTaskStackScreen} />
             <Tab.Screen name={todoName} component={TodoStackScreen} />
             <Tab.Screen name={profileName} component={ProfileStackScreen} />
             </>

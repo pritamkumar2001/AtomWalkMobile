@@ -181,7 +181,7 @@ const LeadStatus = ({route, navigation}) => {
     };
 
   return (
-    <SafeAreaView style={{backgroundColor: colors.primary, flex: 1}}>
+    <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
       <Loader visible={loading} /> 
       <Header 
             label='Lead Status Update'
@@ -197,7 +197,7 @@ const LeadStatus = ({route, navigation}) => {
             <Text style={{fontWeight: 'bold', fontSize:SIZES.large, marginBottom: 5}}>Company : {data.company_name}</Text>
         )}    
         
-        <Text style={{fontWeight: 'bold', fontSize:SIZES.large, backgroundColor: colors.grey}}>Current Status : {route.params.data.status_display}</Text>
+        <Text style={{fontWeight: 'bold', fontSize:SIZES.large}}>Current Status : {route.params.data.status_display}</Text>
         <View style={{marginVertical: 10}}>
         {data.status == 'O' && (
             <>

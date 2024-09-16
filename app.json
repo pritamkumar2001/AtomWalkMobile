@@ -2,7 +2,7 @@
   "expo": {
     "name": "Atomwalk CRM",
     "slug": "atomwalk_crm",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon_1024.png",
     "userInterfaceStyle": "automatic",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.atomwalk.crm",
-      "versionCode": 1,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon_1.png",
         "backgroundColor": "#FFFFFF"

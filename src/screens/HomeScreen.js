@@ -8,6 +8,7 @@ import Logo from '../../assets/background.jpg'
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Logos from '../../assets/images/Atom_walk_logo.jpg';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 const AppContainer =  styled.View`
   flex: 1;
   background-color: #f5f5f5;
@@ -92,6 +93,7 @@ const ListItem = styled(TouchableOpacity)`
   align-items: center;
   margin-bottom: 15px;
   elevation: 3;
+  background-color: ${(props) => props.backgroundColor || '#ffffff'};
 `;
 
 const ListText = styled.Text`
@@ -100,16 +102,6 @@ const ListText = styled.Text`
   color: #333;
 `;
 
-const data = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
-];
 
 
 const HomeScreen = ({ navigation }) => {
@@ -138,34 +130,34 @@ const HomeScreen = ({ navigation }) => {
       </Headers>
       <TbaView>
       <TabContainer>
-        <TabItem onPress={() => navigation.navigate('Task')}>
+        <TabItem  onPress={() => navigation.navigate('My Task')}>
           <Icon name="checkbox-outline" size={30} color="#0e4fe8" />
-          <TabText>Task</TabText>
+          <TabText>My Task</TabText>
         </TabItem>
         <TabItem onPress={() => navigation.navigate('Todo')}>
           <Icon name="bulb-outline" size={30} color="#0e4fe8" />
           <TabText>To Do</TabText>
         </TabItem>
-        <TabItem onPress={() => navigation.navigate('Profile')}>
-          <Icon name="person-outline" size={30} color="#0e4fe8" />
-          <TabText>Profile</TabText>
+        <TabItem onPress={() => navigation.navigate('User Task')}>
+          <Icon name="create-outline" size={30} color="#0e4fe8" />
+          <TabText>User Task</TabText>
         </TabItem>
       </TabContainer>
       </TbaView>
       <ListContainer>
-        <ListItem  onPress={() => navigation.navigate('CustomerScreen')}>
+        <ListItem  backgroundColor="#d3f9d8"  onPress={() => navigation.navigate('CustomerScreen')}>
           <Icon name="people-outline" size={30} color="#0e4fe8" />
           <ListText>My Customers</ListText>
         </ListItem>
-        <ListItem onPress={() => navigation.navigate('LeadScreen')}>
-          <Icon name="trending-up-outline" size={30} color="#0e4fe8" />
+        <ListItem backgroundColor="#fff9cc" onPress={() => navigation.navigate('LeadScreen')}>
+        <FontAwesome6 name="people-group" size={25} color="#0e4fe8" />
           <ListText>My Leads</ListText>
         </ListItem>
-        <ListItem onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
+        <ListItem backgroundColor="#d0e7ff" onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
           <Icon name="file-tray-full-outline" size={30} color="#0e4fe8" />
           <ListText>Invoice Status</ListText>
         </ListItem>
-        <ListItem onPress={() => navigation.navigate('Company')}>
+        <ListItem backgroundColor="rgb(255 246 235)" onPress={() => navigation.navigate('Company')}>
           <Icon name="business-outline" size={30} color="#0e4fe8" />
           <ListText>Company Info</ListText>
         </ListItem>
@@ -175,14 +167,6 @@ const HomeScreen = ({ navigation }) => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // borderRightColor:"#000",
-    // borderWidth: 1, // Border width of 2 pixels
-    // borderColor: '#000', // Border color blac
-    // borderStyle: 'solid', // Solid border style
-    // border
-  },
-}) 
+
 
 export default HomeScreen

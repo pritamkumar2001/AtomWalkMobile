@@ -94,7 +94,7 @@ const LeadScreen = ({ navigation }) => {
                 renderItem={({ item }) => <SmallCard 
                                                 data={item} 
                                                 navigation={navigation} 
-                                                colour={colors.yellow}
+                                                colour={"#fff9cc"}
                                                 title={item.company_name? item.company_name + ' [' + item.name + ']' : item.name}
                                                 subTitle={item.mobile_number? 'M: ' + item.mobile_number : 'Email: ' + item.email_id}
                                                 date={item.qualified_date? item.qualified_date: item.record_date}
@@ -121,7 +121,7 @@ const LeadScreen = ({ navigation }) => {
         <CustomButton 
             onPress={() => navigation.navigate("AddNewLead", {'task':null})} 
             text={'New Lead'} 
-            bgColor={colors.primary} />
+            bgColor={"#4491FE"} />
     </SafeAreaView>  
       
     )

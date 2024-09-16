@@ -4,6 +4,7 @@ import { loginURL } from "../constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getCompanyInfo} from '../services/authServices'
 import { Alert } from 'react-native'
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -19,6 +20,39 @@ export const AuthProvider = ({children}) => {
         setIsLoading(true);
         let isError = false;
 
+        if (!username.includes("@")) {
+            try {
+              // First API call to get the username if it's not an email
+              const userDetailResponse = await axios.get(
+                `https://www.atomwalk.com/api/get_user_detail/?user_id=${username}`
+              );
+      
+              username = userDetailResponse.data.username;
+      
+              // if (userDetailResponse.status === 200) {
+              //   finalUsername = userDetailResponse.data.username;
+              // } else {
+              //   handleError("User not found for nick name");
+              //   return;
+              // }
+            } catch (error) {
+            //   console.log("Error fetching username:", error);
+              Alert.alert(
+                '❌ User not found for nick name', // Adding a cross icon using emoji
+                '', // Empty message (if needed)
+                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                { cancelable: true }
+              );
+              // handleError("Failed to retrieve user details");
+              isError = true
+              setIsLoading(false);
+              return
+            
+            }
+        }
+          
+
+
         // console.log(username, loginURL);
         try {
             const res = await publicAxiosRequest.post(loginURL, {
@@ -26,7 +60,7 @@ export const AuthProvider = ({children}) => {
                 password: password,
             });
             const userToken = res.data['key']
-            // console.log('After call', res.data, userToken)
+            console.log('After call', res.data, userToken)
             AsyncStorage.setItem('userToken', userToken);
             setUserToken(userToken)
             setError('')

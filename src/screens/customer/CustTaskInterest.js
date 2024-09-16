@@ -53,8 +53,9 @@ const CustTaskInterest = ({ route, navigation }) => {
       )}
 
     <View style={{ flex: 1}}>
-      <View style={{ zIndex: 0 }}>
+      <View style={{ zIndex: 0 ,backgroundColor:"gray"}}>
         <FlatList
+        backgroundColor
           data={interest}
           renderItem={({ item }) => <SmallCard data={item}
                                               navigation={navigation} 

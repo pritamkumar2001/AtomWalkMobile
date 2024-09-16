@@ -16,7 +16,7 @@ const TaskScreen = ({ route, navigation }) => {
   const [filterData, setFilterData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  
+  console.log(route.name);
   useEffect(() => {
     getTask(selectedIndex)
   }, [route.params?.refresh]);
@@ -26,13 +26,13 @@ const TaskScreen = ({ route, navigation }) => {
   }
 
   const getTask = (value) => {
-    let task_type = 'ALL';
+    let task_type =route.name=="MTaskSreen"?"MANAGER_ALL":'ALL';
     if (value == 0){
-      task_type = 'D0';
+      task_type = route.name=="MTaskSreen"?'MANAGER_M0':'D0';
     }else if (value == 1){
-      task_type = 'D3';
+      task_type = route.name=="MTaskSreen"?'MANAGER_M3':'D3';
     }else if (value == 2){
-      task_type = 'PAST'
+      task_type = route.name=="MTaskSreen"?'MANAGER_PAST':'PAST'
     }
 
     setLoading(true);
@@ -77,7 +77,7 @@ const TaskScreen = ({ route, navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <Loader visible={loading} /> 
       <Header 
-            label={'My Tasks'  + ' (' + filterData.length +')'}
+            label={route.name=="MTaskSreen"?'User Tasks':'My Tasks'  + ' (' + filterData.length +')'}
             image=''
             icon='squared-plus'
             onPress={onTaskAddPressed}

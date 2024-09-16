@@ -6,25 +6,27 @@ import { colors } from "../Styles/appStyle";
 
 export const CardTitle = ({ title, subTitle, titleSize, subTitleSize }) => {
   return (
-    <View>
-      <Text
-        style={{
-          fontSize: titleSize,
-          color: COLORS.primary,
-        }}
-      >
-        {title}
-      </Text>
-      <Text
-        style={{
-          fontSize: subTitleSize,
-          fontWeight:'bold',
-          color: colors.black,
-        }}
-      >
-        {subTitle}
-      </Text>
-    </View>
+    <View style={{ width: '100%', paddingVertical: 8, paddingHorizontal: 16 }}>
+    <Text
+      style={{
+        fontSize: 20,
+        color:" #454545",
+        fontWeight: '500',
+        marginBottom: 4, // Margin between title and subtitle
+      }}
+    >
+      {title}
+    </Text>
+    <Text
+      style={{
+        fontSize: 15,
+        color: '#333',
+        fontWeight: '400', // Semi-bold for subtitle
+      }}
+    >
+      {subTitle}
+    </Text>
+  </View>
   );
 };
 
@@ -140,7 +142,7 @@ export const EndDate = ({date, colour, dateTitle}) => {
       <Text
         style={{
           fontSize: SIZES.medium,
-          fontWeight:'bold',
+          fontWeight:'400',
           color: textColor,
         }}
       >

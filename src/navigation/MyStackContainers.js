@@ -48,6 +48,22 @@ export function TaskStackScreen() {
     </TaskStack.Navigator>
   );
 }
+export function MTaskStackScreen() {
+  return (
+    <TaskStack.Navigator
+    initialRouteName="TaskScreen"
+    screenOptions={{headerShown: false}} >
+      <TaskStack.Screen name="MTaskSreen" component={TaskScreen} />
+      <TaskStack.Screen name="TaskDetail" component={TsakDetailScreen} />
+      <TaskStack.Screen name="TaskInterest" component={CustTaskInterest} />
+      <TaskStack.Screen name="UpdateTaskInterest" component={UpdateTaskInterest} />
+      <TaskStack.Screen name="AddTask" component={AddTaskScreen} />
+      <TaskStack.Screen name="UpdateTask" component={UpdateTaskScreen} />
+      <TaskStack.Screen name="ViewTaskInterest" component={ViewInterest} />
+      
+    </TaskStack.Navigator>
+  );
+}
 
 const TodoStack = createNativeStackNavigator();
 export function TodoStackScreen() {

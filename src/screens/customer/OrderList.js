@@ -77,7 +77,7 @@ const OrderList = ({ route, navigation }) => {
           data={filterInvData}
           renderItem={({ item }) => <SmallCard data={item}
                                               navigation={navigation} 
-                                              colour={colors.white}
+                                              colour={"#d0e7ff"}
                                               title={item.invoice_number}
                                               subTitle={item.customer_name}
                                               date={item.invoice_due_date}
@@ -98,8 +98,8 @@ const OrderList = ({ route, navigation }) => {
       <View
         style={{position: "absolute", top: 0, bottom: 0, right: 0, left: 0, zIndex: -1,}}
       >
-        <View style={{ height: 230, backgroundColor: colors.darkgrey }} />
-        <View style={{ flex: 1, backgroundColor: colors.grey }} />
+        <View style={{ height: 230,  }} />
+        <View style={{ flex: 1, }} />
       </View>
          
     </View>

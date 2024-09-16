@@ -244,10 +244,8 @@ console.log("location",location)
           {(data.geo_status=="I"||data.geo_status=="O")&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")? 
           <ActionButton1  onPress={()=>handleCheckIn()}>
             <MaterialIcons name="location-on" size={24} color="#fff" />
-            <View>
             <ButtonText1>Checked In at {data && data.geo_data[data.geo_data.some(item => item.geo_type =='S')?1:0]?.time.slice(0,5)}</ButtonText1>
             {/* <ButtonText1>time:{data && data.geo_data[data.geo_status=="I"?0:1]?.time}</ButtonText1> */}
-            </View>
           </ActionButton1>:
           (companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")&&<ActionButton  onPress={()=>getLocation("I","You have successfully checked in your location!")}>
           <MaterialIcons name="location-on" size={24} color="#0548E4" />
