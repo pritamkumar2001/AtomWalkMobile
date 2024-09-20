@@ -160,7 +160,7 @@ const AddTaskScreen = ({route, navigation}) => {
                 defaultValue={inputs.name}
             />
             <RadioInput 
-            label={'Task For : ' + inputs.selected_type}
+            label={'Task For : ' + (inputs.selected_type === 'C' ? "Customer" : "Lead")}
             title1="Customer"
             title2="Lead"
             onSelectedType={onSelectedType}

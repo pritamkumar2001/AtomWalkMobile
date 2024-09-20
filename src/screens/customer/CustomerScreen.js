@@ -64,7 +64,7 @@ const CustomerScreen = ({ navigation }) => {
             icon='arrow-with-circle-left'
             onPress={onBackPressed}
         />
-        <SearchInput label='Search ...'
+        <SearchInput label='Search Company Name ...'
                      serachFilter={serchFilter}
         />                
         
@@ -79,7 +79,7 @@ const CustomerScreen = ({ navigation }) => {
                                               handleIconPress={handleTaskPressed}
                                               handleDisplayPress={ handleViewOrders }
                                               icon='add-task'
-                                              buttonTittle='View Tasks' />}
+                                              buttonTittle='Task list'/>}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
             />

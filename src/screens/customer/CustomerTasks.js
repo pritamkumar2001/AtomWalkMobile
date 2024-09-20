@@ -20,7 +20,7 @@ const CustomerTasks = ({ route, navigation }) => {
   const [leadId, setLeadId] = useState(route.params.lead_id);
   
   const customer_name = route.params.name
-  
+  const refresh=route.params
     useEffect(() => {
         setLoading(true);
         getUserTasks('ALL', customerId, leadId).then((res) => {
@@ -31,7 +31,7 @@ const CustomerTasks = ({ route, navigation }) => {
         .catch((error) => {
             setLoading(false)
         });
-    }, []);
+    }, [refresh]);
 
     const handleNavigation = () => {
         if (customerId){
@@ -91,7 +91,7 @@ const CustomerTasks = ({ route, navigation }) => {
             subTitle={customer_name}
             
       />     
-      <SearchInput label='Search ...'
+      <SearchInput label='Search Task Name...'
                      serachFilter={serchFilter}
       />  
  

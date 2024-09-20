@@ -2,6 +2,10 @@ import {View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { colors } from '../../Styles/appStyle' 
 import { MaterialIcons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
+
 
 const CustomButton = ({onPress, text, type = "PRIMARY", bgColor, fgColor, icon}) => {
   return (
@@ -12,10 +16,9 @@ const CustomButton = ({onPress, text, type = "PRIMARY", bgColor, fgColor, icon})
             styles.container, 
             styles[`container_${type}`],
             bgColor ? {backgroundColor: bgColor} : {}
-            
         ]}>
         {icon && (
-            <MaterialIcons name={icon} size={(type=='LARGE')?40:30} color={(icon=='delete')? colors.white: colors.black} />
+          <Ionicons name="bag-check" size={24} color="white"/>
         )}
                     
         <Text 

@@ -53,7 +53,7 @@ const CustTaskInterest = ({ route, navigation }) => {
       )}
 
     <View style={{ flex: 1}}>
-      <View style={{ zIndex: 0 ,backgroundColor:"gray"}}>
+      <View style={{ zIndex: 0 ,backgroundColor:"#fff"}}>
         <FlatList
         backgroundColor
           data={interest}

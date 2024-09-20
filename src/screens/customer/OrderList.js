@@ -61,7 +61,7 @@ const OrderList = ({ route, navigation }) => {
       />   
 
       { !subTitle && (
-        <SearchInput label='Search ...'
+        <SearchInput label='Search Company Name ...'
                      serachFilter={serchFilter}
         /> 
       )}  
@@ -85,10 +85,11 @@ const OrderList = ({ route, navigation }) => {
                                               dateTitle='Due Date'
                                               buttonTittle={item.currency_symbol + ' ' + item.total}
                                               buttonScreen='ViewOrderItem'
-                                              iconName='email'
+                                              // iconName='email'
                                               iconName2={(item.is_proforma_invoice != 'N')? 'delete': ''}
                                               iconScreen='InvoiceSendMail'
                                               callMode='NA'
+                                              logo={true}
                                               />}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}

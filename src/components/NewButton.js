@@ -2,6 +2,8 @@ import {React} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import {colors} from './../Styles/appStyle';
 import { MaterialIcons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 const NewButton = ({title, icon, onPress = () => {}}) => {
   return (
@@ -19,6 +21,7 @@ const NewButton = ({title, icon, onPress = () => {}}) => {
         alignItems: 'center',
         borderRadius: 6,
       }}>
+       <Ionicons name="bag-check" size={24} color="white"/>
       {icon && (
             <MaterialIcons name={icon} size={30} color={(icon=='delete')? colors.white: colors.black} />
       )}  

@@ -2,14 +2,14 @@
   "expo": {
     "name": "Atomwalk CRM",
     "slug": "atomwalk_crm",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
-    "icon": "./assets/icon_1024.png",
+    "icon": "./assets/images/adaptive-icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "white"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,14 +22,19 @@
     },
     "android": {
       "package": "com.atomwalk.crm",
-      "versionCode": 3,
+      "versionCode": 5,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon_1.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDMIaXdTuhdggpPcA9Txmg-YPbKorIwwws"
+        }
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/adaptive-icon.png"
     },
     "extra": {
       "eas": {

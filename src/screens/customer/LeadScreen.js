@@ -100,7 +100,7 @@ const LeadScreen = ({ navigation }) => {
                                                 date={item.qualified_date? item.qualified_date: item.record_date}
                                                 dateColour={item.qualified_date? colors.green: colors.black}
                                                 dateTitle={ item.status_display}
-                                                buttonTittle='View Task'
+                                                buttonTittle='Task list'
                                                 buttonScreen='LeadTasks'
                                                 iconName='add-task'
                                                 text1='Task'

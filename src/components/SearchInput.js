@@ -22,7 +22,7 @@ const SearchInput = ({
             color={colors.grey}
             style={{marginRight: 10}}
           />
-          <TextInput placeholder={label}
+          <TextInput style={{width:"100%"}} placeholder={label}
                      value={serachText}
                      onChangeText={(text) => handleOnChange(text)}
             />

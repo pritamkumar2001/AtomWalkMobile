@@ -106,7 +106,7 @@ const TaskScreen = ({ route, navigation }) => {
         selectedButtonStyle={{backgroundColor: '#4491FE'}}
         buttonContainerStyle={{borderColor: 'transparent', borderWidth: 0,}}
       />
-      <SearchInput label='Search ...'
+      <SearchInput label='Search Task Name...'
                      serachFilter={serchFilter}
       />
     <View style={{ flex: 1}}>

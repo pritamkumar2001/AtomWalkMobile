@@ -35,13 +35,30 @@ const ButtonSection = styled.View`
 
 const ActionButton = styled.TouchableOpacity`
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   background-color: #fff;
   padding: 10px;
   padding-left: 19px;
   margin-bottom: 10px;
   border: 1px solid #0548E4;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 48%;
+  elevation: 3; /* Add shadow for Android */
+  shadow-color: #000; /* Add shadow for iOS */
+  /* shadow-offset: { width: 0, height: 2 }; */
+  shadow-opacity: 0.25;
+  shadow-radius: 3.84px;
+`;
+const ActionButton2 = styled.TouchableOpacity`
+  align-items: center;
+  background-color: ${(props) => props.backgroundColor || 'transparent'};
+  padding: 10px;
+  padding-left: 19px;
+  margin-bottom: 10px;
+  border: 1px solid #454545;
+  border-radius: 15px;
+  width: 100%;
   elevation: 3; /* Add shadow for Android */
   shadow-color: #000; /* Add shadow for iOS */
   /* shadow-offset: { width: 0, height: 2 }; */
@@ -50,13 +67,13 @@ const ActionButton = styled.TouchableOpacity`
 `;
 const ActionButton1 = styled.TouchableOpacity`
   flex-direction: row;
-  background-color: green;
+  background-color: ${(props) => props.backgroundColor || 'green'};
   align-items: center;
   padding: 10px;
   padding-left: 19px;
   margin-bottom: 10px;
   border: 1px solid #0548E4;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 48%;
   elevation: 3; /* Add shadow for Android */
   shadow-color: #000; /* Add shadow for iOS */
@@ -67,9 +84,10 @@ const ActionButton1 = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   font-size: 14px;
-  color: #0548E4;
+  color: ${(props) => props.color || '#0548E4'};
   margin-left: 5px;
   text-align: center;
+  font-weight: 500;
 `;
 const ButtonText1 = styled.Text`
   font-size: 14px;
@@ -91,8 +109,8 @@ const TaskDetailScreen = ({route, navigation}) => {
     const[showalert,setShowalert]=useState(false);
     const {setRefs,refs} = useContext(AuthContext);
     const {companyInfo, dbName, userToken} = useContext(AuthContext);
-console.log(refs,"value")
-console.log(companyInfo,"companydata--->1")
+// console.log(refs,"value")
+// console.log(companyInfo,"companydata--->1")
     useEffect(() => {
         const date = new Date();
         const hours = date.getHours().toString().padStart(2, '0');
@@ -116,7 +134,7 @@ console.log(companyInfo,"companydata--->1")
       }
     };
     const handleCheckIn = () => {
-      if (location) {
+      if (location.latitude&&location.latitude) {
         setShowMap(true);
       } else {
         alert('No Location Set', 'Please use "Start In" to set your current location first.');
@@ -254,22 +272,24 @@ console.log("location",location)
           {data.geo_status=="I"&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C") ?<ActionButton onPress={()=>getLocation("O","You have successfully checked out your location!")}>
             <MaterialIcons name="logout" size={24} color="#0548E4" />
             <ButtonText>Check Out</ButtonText>
-          </ActionButton>:data.geo_status=="O"&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")&& <ActionButton1 onPress={()=>alert("You have already checked out your location!")}>
+          </ActionButton>:data.geo_status=="O"&&(companyInfo.is_geo_location_enabled=="B"||companyInfo.is_geo_location_enabled=="C")&& <ActionButton1 backgroundColor="tomato" onPress={()=>alert("You have already checked out your location!")}>
             <MaterialIcons name="logout" size={24} color="#fff" />
             <ButtonText1>Checked out at {data&& data.geo_data[data.geo_data.length-1]?.time.slice(0,5)}</ButtonText1></ActionButton1>}
-    <ActionButton onPress={handleUpadteTask}>
-            <MaterialIcons name="edit" size={24} color="#0548E4" />
-            <ButtonText>Update task</ButtonText>
-          </ActionButton>
-          <ActionButton onPress={handleMarkComplete}>
-            <MaterialIcons name="check-circle" size={24} color="#0548E4" />
-            <ButtonText>Mark Completed</ButtonText>
-          </ActionButton>
-          <ActionButton onPress={handleAssignUser}>
-            <MaterialIcons name="person-add" size={24} color="#0548E4" />
-            <ButtonText>Assign To User</ButtonText>
-          </ActionButton>
           </ButtonSection>
+          <View style={{alignItems:"center",marginTop:"5%"}}>
+          <ActionButton2 backgroundColor="#ffa500" onPress={handleUpadteTask}>
+            {/* <MaterialIcons name="edit" size={24} color="#0548E4" /> */}
+            <ButtonText color="#454545">Update Task</ButtonText>
+          </ActionButton2>
+          <ActionButton2 backgroundColor="lightgreen" onPress={handleMarkComplete}>
+            {/* <MaterialIcons name="check-circle" size={24} color="#0548E4" /> */}
+            <ButtonText color="#454545">Mark Completed</ButtonText>
+          </ActionButton2>
+          <ActionButton2 backgroundColor="red" onPress={handleAssignUser}>
+            {/* <MaterialIcons name="person-add" size={24} color="#0548E4" /> */}
+            <ButtonText color="#454545">Assign To User</ButtonText>
+          </ActionButton2>
+          </View>
       </View> }
       {showMap && location && (
           <MapContainer>
@@ -292,7 +312,7 @@ console.log("location",location)
             </MapView>
           </MapContainer>
         )}
-        {showalert&&<CustomAlert message={message} route={route} navigation={navigation}showalert={showalert}name={data.name}></CustomAlert>}
+        {showalert&&<CustomAlert data={data} screen={screen} message={message} route={route} navigation={navigation}showalert={showalert}name={data.name}></CustomAlert>}
    </SafeAreaView>
   );
 };

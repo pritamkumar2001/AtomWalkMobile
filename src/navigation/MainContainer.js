@@ -40,7 +40,7 @@ const MainContainer = () => {
       <Tab.Navigator
         initialRouteName= {userToken? {homeName} : {loginName}}
         screenOptions={({ route }) => ({
-          tabBarActiveTintColor: '#4491FE',
+          tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'grey',
           unmountOnBlur:true,
           headerShown: false,  
@@ -49,14 +49,14 @@ const MainContainer = () => {
             let rn = route.name;
 
             if (rn === homeName) {
-              iconName = focused ? 'home' : 'home-outline';
+              iconName = focused ? 'home' : 'home-outline';  
 
             } else if (rn === taskName) {
               iconName = focused ? 'list' : 'list-outline';
             }else if (rn === mtaskName) {
               iconName = focused ? 'create-outline' : 'create-outline';
             } else if (rn === todoName) {
-              iconName = focused ? 'code-working' : 'code-working-outline';
+              iconName = focused ? 'bulb-outline' : 'bulb-outline';
 
             } else if (rn === profileName) {
               iconName = focused ? 'person-circle' : 'person-circle-outline';

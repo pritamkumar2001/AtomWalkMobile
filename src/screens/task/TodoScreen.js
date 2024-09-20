@@ -73,21 +73,24 @@ const TodoScreen = ({ navigation }) => {
             setTodoToBeEdited(null);
         }
     }
-
+    const onBackPressed = () => {
+        setModalVisible(true)
+    }
 
   return (
       <>
         <Header 
             label='Todos'
             image=''
-            icon='trash'
+            // icon='squared-plus'
+            onPress={onBackPressed}
         />
         <ListItems 
             todos={todos}
             setTodos={setTodos}
             handleTriggerEdit={handleTriggerEdit}
             navigation = { navigation }
-        />
+        /> 
         <InputModal 
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}

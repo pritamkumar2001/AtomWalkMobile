@@ -221,10 +221,9 @@ const UpdateTaskScreen = ({route, navigation}) => {
                 onPress={validate} 
                 text={(callMode == 'Update')?'Update Task': (callMode == 'AssignUser')? 'Assign To User': 'Mark Completed'} 
                 bgColor={(callMode == 'Update')? colors.secondary: (callMode == 'AssignUser')? colors.red: colors.green}
-                // icon={(callMode == 'Update')? 'edit': (callMode == 'AssignUser')? 'assignment-ind': 'done-all'}
+                icon={(callMode == 'bag')? 'edit': (callMode == 'AssignUser')? 'assignment-ind': 'done-all'}
                 
             /> 
-            
         </View>
         </>
       </ScrollView>

@@ -6,7 +6,7 @@ import { SubInfo, CardTitle } from "./SubInfo";
 import { colors } from "../Styles/appStyle";
 import { MaterialIcons } from '@expo/vector-icons';
 const Header = styled.View`
-  background-color: #0548E4;
+  background-color: #4285f4;
   border-radius: 20px;
   align-items: center;
   padding: 20px;
@@ -56,20 +56,20 @@ const DetailCard = ({colour, title, subTitle, date, dateTitle, imageUrl, imageLa
     const cardColour = colour ? colour: colors.primary
     return (
       <Header>
-      <ProfilePhotoContainer>
+      {imageUrl&&<ProfilePhotoContainer>
         <ProfilePhoto
           source={{
             uri: imageUrl, // Placeholder image URL
           }}
         />
-      </ProfilePhotoContainer>
+      </ProfilePhotoContainer>}
       <EmailText>{imageLabel}</EmailText>
 
       {/* Task Details Section */}
       <TaskInfo>
-        <TaskText>
+        {name&&  <TaskText>
           <Label>Task Name: </Label>{name}
-        </TaskText>
+        </TaskText>}
        
         {subInfo&&<TaskText>
           <Label>Info: </Label>{subInfo}

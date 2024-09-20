@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const CustomAlert = ({showalert,route, navigation,name,message}) => {
+const CustomAlert = ({showalert,route, navigation,name,message,data,screen}) => {
   const [isModalVisible, setModalVisible] = useState(showalert);
 
   // Function to toggle modal visibility
@@ -12,7 +12,13 @@ const CustomAlert = ({showalert,route, navigation,name,message}) => {
     navigationtoscreen();
   };
   const navigationtoscreen=()=>{
-    navigation.navigate('TaskSreen', { refresh: name });
+    if (screen == 'LeadTaskDetail'){
+      navigation.navigate('CustomerTasks',  {customer_id: '', name: data.name, lead_id: data.id, call_mode:'L',refresh: name });
+    }
+    else{
+          navigation.navigate('TaskSreen', { refresh: name });
+    }
+
   }
 
   return (

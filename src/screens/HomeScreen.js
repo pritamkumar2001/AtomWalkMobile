@@ -15,8 +15,8 @@ const AppContainer =  styled.View`
 
 `;
 
-const Headers = styled(ImageBackground)`
-  background-color: #0e4fe8;
+const Headers = styled.View`
+  background-color:#4285f4;
   padding: 20px;
   padding-top: 60px;
   padding-bottom: 105px;
@@ -114,7 +114,7 @@ const HomeScreen = ({ navigation }) => {
   return (
   
       <>
-        <StatusBar barStyle="light-content" backgroundColor="#0e4fe8" />
+        <StatusBar barStyle="light-content" backgroundColor="#4285f4" />
       <AppContainer>
        <Headers  source={Logo}>
        <ProfileImage 
@@ -125,13 +125,13 @@ const HomeScreen = ({ navigation }) => {
           }
 />
         <Title>{companyInfo?companyInfo.name:''}</Title>
-        <NotificationIcon name="notifications-outline" />
+        {/* <NotificationIcon name="notifications-outline" /> */}
         <WelcomeText>Welcome to Atomwalk Office</WelcomeText>
       </Headers>
       <TbaView>
       <TabContainer>
         <TabItem  onPress={() => navigation.navigate('My Task')}>
-          <Icon name="checkbox-outline" size={30} color="#0e4fe8" />
+          <Icon name="list-outline" size={30} color="#0e4fe8" />
           <TabText>My Task</TabText>
         </TabItem>
         <TabItem onPress={() => navigation.navigate('Todo')}>
