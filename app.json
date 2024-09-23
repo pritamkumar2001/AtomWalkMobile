@@ -2,14 +2,14 @@
   "expo": {
     "name": "Atomwalk CRM",
     "slug": "atomwalk_crm",
-    "version": "1.0.4",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/images/adaptive-icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "white"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.atomwalk.crm",
-      "versionCode": 5,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -34,7 +34,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/images/adaptive-icon.png"
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {

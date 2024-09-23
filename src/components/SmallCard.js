@@ -95,7 +95,7 @@ const RectButton = styled.TouchableOpacity`
 `;
 
 const ButtonText = styled.Text`
-  color: #000000;
+  color: black;
   font-size: ${(props) => props.fontSize || SIZES.font}px;
 `;
 
@@ -242,7 +242,7 @@ const SmallCard = ({data, navigation, colour, title, subTitle, date, dateTitle, 
               <Text style={{color:"#fff",fontWeight:"500"}}>Delete</Text>
             </RectButton>
           <View style={{marginTop:5,marginLeft:3}}></View>
-          <RectButton bcolor="#4491FE"  minWidth={120} fontSize={SIZES.font} onPress={handleNavigation}>
+          <RectButton bcolor="orange"  minWidth={120} fontSize={SIZES.font} onPress={handleNavigation}>
           <MaterialIcons name="security-update-good" size={24} color="#fff" />
             <Text style={{fontWeight:"400",color:"white"}}>{buttonTittle}</Text>
           </RectButton></View></ButtonContainer>}
