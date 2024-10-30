@@ -3,7 +3,7 @@ import { HeaderView, HeaderTitle, HeaderTitleLong, HeaderButton, HeaderLogo,
          HeaderSubTitle, HeaderSubTitleText, colors } from '../Styles/appStyle';
 import { Image } from 'react-native'
 import {Entypo} from "@expo/vector-icons";
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 const Header = ({label, image, long, icon, onPress, subTitle}) => {
   return (
     <>
@@ -31,7 +31,7 @@ const Header = ({label, image, long, icon, onPress, subTitle}) => {
       
       <HeaderButton 
         onPress={onPress}>
-        <Entypo name={icon} size={30} color={'#4491FE'} />
+       { icon=='scan1'?<AntDesign name="scan1" size={24} color="#4491FE" />: <Entypo name={icon} size={30} color={'#4491FE'} />}
       </HeaderButton>
       
     </HeaderView>

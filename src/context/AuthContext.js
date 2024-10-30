@@ -19,41 +19,24 @@ export const AuthProvider = ({children}) => {
     const login = async(username, password) => {
         setIsLoading(true);
         let isError = false;
-
         if (!username.includes("@")) {
             try {
-              // First API call to get the username if it's not an email
               const userDetailResponse = await axios.get(
                 `https://www.atomwalk.com/api/get_user_detail/?user_id=${username}`
               );
-      
               username = userDetailResponse.data.username;
-      
-              // if (userDetailResponse.status === 200) {
-              //   finalUsername = userDetailResponse.data.username;
-              // } else {
-              //   handleError("User not found for nick name");
-              //   return;
-              // }
             } catch (error) {
-            //   console.log("Error fetching username:", error);
               Alert.alert(
-                '❌ User not found for nick name', // Adding a cross icon using emoji
-                '', // Empty message (if needed)
+                '❌ User not found for nick name',
+                '', 
                 [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
                 { cancelable: true }
               );
-              // handleError("Failed to retrieve user details");
               isError = true
               setIsLoading(false);
               return
-            
             }
         }
-          
-
-
-        // console.log(username, loginURL);
         try {
             const res = await publicAxiosRequest.post(loginURL, {
                 username: username,
@@ -64,19 +47,16 @@ export const AuthProvider = ({children}) => {
             AsyncStorage.setItem('userToken', userToken);
             setUserToken(userToken)
             setError('')
-            // console.log('TOKEN', getData())
         } catch (err) {
             isError = true
-            // console.log('Login', err)
             setError(`Unable to Authenticate : ${err}`)
             Alert.alert(
-                '❌ Incorrect E-mail ID or password', // Adding a cross icon using emoji
-                '', // Empty message (if needed)
+                '❌ Incorrect E-mail ID or password', 
+                '',
                 [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
                 { cancelable: true }
               );
         }
-
         if (!isError){
             getCompanyInfo().then((res) => {
                 let comanyInfo = res.data; 
@@ -85,14 +65,11 @@ export const AuthProvider = ({children}) => {
                 AsyncStorage.setItem('dbName', db_name);
                 setCompanyInfo(comanyInfo);
                 setDbName(db_name);
-                // console.log(res.data.db_name, db_name);
-                
             })
             .catch((error) => {
                     console.log('ERROR', {error}, error.message);
             });
         }
-        
         setIsLoading(false);
     }
 
@@ -108,7 +85,6 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
         setError('')
     }
-
     const isLoggedIn = async() => {
         try {
             setIsLoading(true);

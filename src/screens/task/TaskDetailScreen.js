@@ -67,12 +67,12 @@ const ActionButton2 = styled.TouchableOpacity`
 `;
 const ActionButton1 = styled.TouchableOpacity`
   flex-direction: row;
-  background-color: ${(props) => props.backgroundColor || 'green'};
+  background-color: ${(props) => props.backgroundColor || 'rgb(50 205 51)'};
   align-items: center;
   padding: 10px;
   padding-left: 19px;
   margin-bottom: 10px;
-  border: 1px solid #0548E4;
+  border: 1px solid #454545;
   border-radius: 15px;
   width: 48%;
   elevation: 3; /* Add shadow for Android */
@@ -281,13 +281,13 @@ console.log("location",location)
             {/* <MaterialIcons name="edit" size={24} color="#0548E4" /> */}
             <ButtonText color="#454545">Update Task</ButtonText>
           </ActionButton2>
-          <ActionButton2 backgroundColor="lightgreen" onPress={handleMarkComplete}>
+          <ActionButton2 backgroundColor="rgb(50 205 51)" onPress={handleMarkComplete}>
             {/* <MaterialIcons name="check-circle" size={24} color="#0548E4" /> */}
-            <ButtonText color="#454545">Mark Completed</ButtonText>
+            <ButtonText color="#fff">Mark Completed</ButtonText>
           </ActionButton2>
           <ActionButton2 backgroundColor="red" onPress={handleAssignUser}>
             {/* <MaterialIcons name="person-add" size={24} color="#0548E4" /> */}
-            <ButtonText color="#454545">Assign To User</ButtonText>
+            <ButtonText color="#fff">Assign To User</ButtonText>
           </ActionButton2>
           </View>
       </View> }

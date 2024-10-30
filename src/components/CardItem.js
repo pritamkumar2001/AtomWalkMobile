@@ -113,7 +113,7 @@ const ActionButtonText = styled.Text`
 const AssignTaskButton = styled.TouchableOpacity`
   background-color:  ${props => (props.color ? '#007bff' : 'red')};
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 10px 10px;
 `;
 
 const AssignTaskText = styled.Text`

@@ -9,6 +9,7 @@ import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Logos from '../../assets/images/Atom_walk_logo.jpg';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import AntDesign from '@expo/vector-icons/AntDesign';
 const AppContainer =  styled.View`
   flex: 1;
   background-color: #f5f5f5;
@@ -79,27 +80,61 @@ const TabText = styled.Text`
   margin-top: 5px;
 
 `;
-
-const ListContainer = styled.View`
+const ListContainers = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+  showsHorizontalScrollIndicator: false,
+})`
   padding: 20px;
-  margin-top: 5%;
+  /* margin-top: 2%; */
+`;
+const ListContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 `;
 
 const ListItem = styled(TouchableOpacity)`
-  background-color: white;
-  padding: 15px;
+  background-color: ${(props) => props.backgroundColor || '#ffffff'};
+  padding: 20px;
   border-radius: 10px;
-  flex-direction: row;
   align-items: center;
-  margin-bottom: 15px;
+  justify-content: center;
+  width: 47%;  // Two items per row with spacing
+  /* margin-bottom: 30px; */
+  margin-bottom: 10px;
+  elevation: 3;
+`;
+
+const ListText = styled.Text`
+  font-size: 16px;
+  color: #454545;
+  font-weight: 500;
+  margin-top: 10px;
+  text-align: center;
+`;
+const ListItem2 = styled(TouchableOpacity)`
+  padding: 20px;
+  margin: 2px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 47%;  // Two items per row with spacing
+  margin-bottom: 35px;
   elevation: 3;
   background-color: ${(props) => props.backgroundColor || '#ffffff'};
 `;
 
-const ListText = styled.Text`
-  margin-left: 15px;
-  font-size: 16px;
-  color: #333;
+const BackGround = styled.View`
+width: 60px;
+background-color: #4285f4;
+height: 60px;
+border-radius:60px;
+display: flex;
+align-items: center;
+justify-content: center;
+/* border-radius: 50%; */
 `;
 
 
@@ -129,7 +164,7 @@ const HomeScreen = ({ navigation }) => {
         <WelcomeText>Welcome to Atomwalk Office</WelcomeText>
       </Headers>
       <TbaView>
-      <TabContainer>
+      {/* <TabContainer>
         <TabItem  onPress={() => navigation.navigate('My Task')}>
           <Icon name="list-outline" size={30} color="#0e4fe8" />
           <TabText>My Task</TabText>
@@ -142,26 +177,42 @@ const HomeScreen = ({ navigation }) => {
           <Icon name="create-outline" size={30} color="#0e4fe8" />
           <TabText>User Task</TabText>
         </TabItem>
-      </TabContainer>
+      </TabContainer> */}
       </TbaView>
+      <ListContainers>
       <ListContainer>
-        <ListItem  backgroundColor="#d3f9d8"  onPress={() => navigation.navigate('CustomerScreen')}>
-          <Icon name="people-outline" size={30} color="#0e4fe8" />
-          <ListText>My Customers</ListText>
+        <ListItem  backgroundColor="#e1e5fc"  onPress={() => navigation.navigate('CustomerScreen')}>
+          <BackGround>
+          <Icon name="people-outline" size={30} color="#fff" />
+          </BackGround><ListText>My Customers</ListText>
         </ListItem>
-        <ListItem backgroundColor="#fff9cc" onPress={() => navigation.navigate('LeadScreen')}>
-        <FontAwesome6 name="people-group" size={25} color="#0e4fe8" />
+        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('LeadScreen')}>
+        <BackGround>
+        <FontAwesome6 name="people-group" size={25} color="#fff" />
+        </BackGround>
           <ListText>My Leads</ListText>
         </ListItem>
-        <ListItem backgroundColor="#d0e7ff" onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
-          <Icon name="file-tray-full-outline" size={30} color="#0e4fe8" />
+        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
+        <BackGround>
+          <Icon name="file-tray-full-outline" size={30} color="#fff" />
+          </BackGround>
           <ListText>Invoice Status</ListText>
         </ListItem>
-        <ListItem backgroundColor="rgb(255 246 235)" onPress={() => navigation.navigate('Company')}>
-          <Icon name="business-outline" size={30} color="#0e4fe8" />
-          <ListText>Company Info</ListText>
+        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate("AddNewLead", {'task':null,'scan':true})}>
+        <BackGround>
+        <AntDesign name="scan1" size={24} color="#fff" />
+        </BackGround>
+        <ListText>Scan Lead</ListText>
         </ListItem>
+       
+        <ListItem2 backgroundColor="#e1e5fc" onPress={() => navigation.navigate('Company')}>
+        <BackGround>
+          <Icon name="business-outline" size={30} color="#fff" />
+          </BackGround>
+          <ListText>Company Info</ListText>
+        </ListItem2>
       </ListContainer>
+      </ListContainers>
     </AppContainer>
       </>
   )
