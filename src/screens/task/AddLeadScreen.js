@@ -9,7 +9,7 @@ import DropDown2 from '../../components/DropDown'
 import DateInput from '../../components/DateInput'
 import CheckBoxInput from '../../components/CheckBoxInput'
 import Header from '../../components/Header'; 
-import { addLead, getTaskTypeList } from '../../services/productServices'
+import { addLead, getTaskTypeList, imagetotext } from '../../services/productServices'
 import ToastMsg from '../../components/ToastMsg';
 import * as ImagePicker from "expo-image-picker";
   
@@ -109,32 +109,63 @@ const AddLeadScreen = ({route, navigation}) => {
 
     };// Function to perform OCR on the captured image and extract text
     const performOCR = (file) => {
-        let myHeaders = new Headers();
-        myHeaders.append("apikey", "FEmvQr5uj99ZUvk3essuYb6P5lLLBS20"); // Use your API key here
-        myHeaders.append("Content-Type", "multipart/form-data");
-        let requestOptions = {
-            method: "POST",
-            redirect: "follow",
-            headers: myHeaders,
-            body: file,
-        };
-        // Send a POST request to the OCR API
-        fetch("https://api.apilayer.com/image_to_text/upload", requestOptions)
-            .then((response) => response.json())
-            .then((result) => {
-                const extractedText = result["all_text"];
-                // Assuming OCR returns a single block of text, we can process it
-                if (extractedText) {
-                    // Call function to map the text to the form fields
-                    mapExtractedTextToFields(extractedText);
-                    const options = extractedText.split("\n").map((item) => ({
-                        label: item.trim(),
-                        value: item.trim()
-                    }));
-                    setDropDownData(options)
-                }
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('image_file', {
+          uri: file.uri,
+          name: file.fileName,
+          type: file.mimeType,
+        });
+        imagetotext(formData).then((res) => {
+            setLoading(false);
+            ToastMsg('Lead Added Successfully');
+            const extractedText = res?.data?.text.filter(item => item.trim() !== "").join("\n");
+
+                    // Assuming OCR returns a single block of text, we can process it
+                    if (extractedText) {
+                        // Call function to map the text to the form fields
+                        mapExtractedTextToFields(extractedText);
+                        const options = extractedText.split("\n").map((item) => ({
+                            label: item.trim(),
+                            value: item.trim()
+                        }));
+                        setDropDownData(options)
+                    }
             })
-            .catch((error) => console.log("error", error));
+            .catch((error) => {
+                setLoading(false);
+                console.log('Add Lead ERROR', {error}, error.message);
+                if (error.response.data.detail){
+                    error.message = error.response.data.detail;
+                    ToastMsg(error.response.data.detail, 'ERROR', 'error');
+                }
+            });
+        // let myHeaders = new Headers();
+        // myHeaders.append("apikey", "FEmvQr5uj99ZUvk3essuYb6P5lLLBS20"); // Use your API key here
+        // myHeaders.append("Content-Type", "multipart/form-data");
+        // let requestOptions = {
+        //     method: "POST",
+        //     redirect: "follow",
+        //     headers: myHeaders,
+        //     body: file,
+        // };
+        // // Send a POST request to the OCR API
+        // fetch("https://api.apilayer.com/image_to_text/upload", requestOptions)
+        //     .then((response) => response.json())
+        //     .then((result) => {
+        //         const extractedText = result["all_text"];
+        //         console.log(extractedText,"hfbhfrhferufeuf")
+        //         if (extractedText) {
+        //             // Call function to map the text to the form fields
+        //             mapExtractedTextToFields(extractedText);
+        //             const options = extractedText.split("\n").map((item) => ({
+        //                 label: item.trim(),
+        //                 value: item.trim()
+        //             }));
+        //             setDropDownData(options)
+        //         }
+        //     })
+        //     .catch((error) => console.log("error", error));
     };
     
     // Function to map extracted text to form fields

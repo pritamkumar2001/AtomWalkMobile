@@ -1,5 +1,5 @@
-import { authAxios, authAxiosPost } from "./httpMethod";
-import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL, UpdateGeoLocation } from "../constants";
+import { authAxios, authAxiosFilePost, authAxiosPost } from "./httpMethod";
+import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL, UpdateGeoLocation, getfiletotext } from "../constants";
 import { getTaskInterestListURL, getVariationNameListURL, getProductCategoryListURL } from '../constants';
 import { getOrderListURL, updateTaskInterestURL, getLeadStatusListURL, getTaskTypeListURL } from '../constants';
 import { addTaskURL, updateTaskURL, userTaskListURL, getUserListURL, updateLeadStatusURL} from "../constants";
@@ -154,4 +154,10 @@ export function updateTask(task_data, is_completed='N', assign_user='N') {
 export function getUserList() {
     // console.log('getUserList')
     return authAxios(getUserListURL)
+}
+export function imagetotext(Uri) {
+    console.log('getUserList3434',Uri)
+    let data = {};
+    data = Uri
+    return authAxiosFilePost(getfiletotext, data);
 }

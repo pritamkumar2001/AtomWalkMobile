@@ -28,7 +28,22 @@ export const authAxiosPost = async (url, data) => {
 export const publicAxiosRequest = axios.create({
   baseURL: endpoint,
 });
+export const authAxiosFilePost = async (url, data) => {
+  let token = await AsyncStorage.getItem('userToken');
+  console.log("Data to be sent:", data);
+  if (!(data instanceof FormData)) {
+    console.error('Data is not FormData!');
+    return;
+  }
+  return axios.create({
+          baseURL: endpoint,
+          headers: {
+              Authorization:`Token ${token}`,
+              'Content-Type': 'multipart/form-data',
+          }
+      }).post(url, data)
 
+};
 export default {
   get: axios.get,
   post: axios.post,

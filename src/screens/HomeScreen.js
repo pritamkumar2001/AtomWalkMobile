@@ -88,6 +88,7 @@ const ListContainers = styled.ScrollView.attrs({
   /* margin-top: 2%; */
 `;
 const ListContainer = styled.View`
+  margin-bottom: 30px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -121,7 +122,7 @@ const ListItem2 = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   width: 47%;  // Two items per row with spacing
-  margin-bottom: 35px;
+  /* margin-bottom: 35px; */
   elevation: 3;
   background-color: ${(props) => props.backgroundColor || '#ffffff'};
 `;
@@ -186,17 +187,17 @@ const HomeScreen = ({ navigation }) => {
           <Icon name="people-outline" size={30} color="#fff" />
           </BackGround><ListText>My Customers</ListText>
         </ListItem>
-        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('LeadScreen')}>
-        <BackGround>
-        <FontAwesome6 name="people-group" size={25} color="#fff" />
-        </BackGround>
-          <ListText>My Leads</ListText>
-        </ListItem>
         <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
         <BackGround>
           <Icon name="file-tray-full-outline" size={30} color="#fff" />
           </BackGround>
           <ListText>Invoice Status</ListText>
+        </ListItem>
+        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('LeadScreen')}>
+        <BackGround>
+        <FontAwesome6 name="people-group" size={25} color="#fff" />
+        </BackGround>
+          <ListText>My Leads</ListText>
         </ListItem>
         <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate("AddNewLead", {'task':null,'scan':true})}>
         <BackGround>
@@ -204,7 +205,6 @@ const HomeScreen = ({ navigation }) => {
         </BackGround>
         <ListText>Scan Lead</ListText>
         </ListItem>
-       
         <ListItem2 backgroundColor="#e1e5fc" onPress={() => navigation.navigate('Company')}>
         <BackGround>
           <Icon name="business-outline" size={30} color="#fff" />
