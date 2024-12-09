@@ -12,7 +12,6 @@ const SearchInput = ({
     serachFilter(text);
     setSearchText(text)
   };    
-
   return (
     <View
           style={style.inputContainer}>
@@ -40,7 +39,7 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingVertical: 6,
     margin:10,
     padding:10,
     

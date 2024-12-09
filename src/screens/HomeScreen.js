@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Logos from '../../assets/images/Atom_walk_logo.jpg';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import PinPopup from '../components/PinPopup';
 const AppContainer =  styled.View`
   flex: 1;
   background-color: #f5f5f5;
@@ -144,8 +145,8 @@ const HomeScreen = ({ navigation }) => {
   const {companyInfo, dbName, userToken} = useContext(AuthContext);
   const [slectedItem, setSelectedItem] = useState(null)
   const {height} = useWindowDimensions();
-  const onSelect = (item) => {
-    setSelectedItem(item)
+  const onSelect = () => {
+    navigation.navigate('ChangePassword')
   }
   return (
   
@@ -214,6 +215,7 @@ const HomeScreen = ({ navigation }) => {
       </ListContainer>
       </ListContainers>
     </AppContainer>
+    <PinPopup navigation={onSelect}></PinPopup>
       </>
   )
 }

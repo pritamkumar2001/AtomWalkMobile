@@ -9,23 +9,34 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../../../assets/images/Atom_walk_logo.jpg";
 import CustomButton from "../../components/CustomButton";
 import TxtInput from "../../components/TxtInput";
 import { AuthContext } from "../../context/AuthContext";
 import { colors } from "../../Styles/appStyle";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AuthScreen from "../../navigation/AuthScreen";
 
-const onForgotPasswordPressed = () => {
-  console.warn("Forgot Password enabled in WEB mode");
-};
+
 
 const LoginScreen = () => {
   const { login, isLoading } = useContext(AuthContext);
   const { height } = useWindowDimensions();
   const [inputs, setInputs] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
-
+  const [userPin, setUserPin] = useState(null);
+  const [showLogin,setshowLogin]=useState(true);
+  const onForgotPasswordPressed = () => {
+    setshowLogin(false);
+  };
+  useEffect(() => {
+      const fetchUserPin = async () => {
+          const storedPin = await AsyncStorage.getItem('userPin');
+          setUserPin(storedPin); // storedPin will be `null` if no value is found
+      };
+      fetchUserPin();
+  }, []);
   const userLogin = (finalUsername) => {
     // console.log("Sign In", finalUsername, inputs.password);
     login(finalUsername, inputs.password);
@@ -63,7 +74,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView
+    <>
+    {showLogin?<ScrollView
       showsVerticalScrollIndicator={false}
       style={{ backgroundColor: colors.white, flex: 1 }}
     >
@@ -98,13 +110,14 @@ const LoginScreen = () => {
           password
         />
         <CustomButton onPress={validate} disable={isLoading} text={"Sign In"} />
-        <CustomButton
+        {userPin&&<CustomButton
           onPress={onForgotPasswordPressed}
-          text={"Forgot password"}
+          text={"Login With Your Pin"}
           type={"LINK_ONLY"}
-        />
+        />}
       </View>
-    </ScrollView>
+    </ScrollView>:<AuthScreen></AuthScreen>}
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import { colors } from '../Styles/appStyle'
 import { getProfileInfo } from '../services/authServices';
 import { MaterialIcons,MaterialCommunityIcons ,Ionicons,Octicons  } from '@expo/vector-icons';
 import styled from 'styled-components/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Container = styled.View`
   flex: 1;
   background-color: #fff;
@@ -99,7 +100,8 @@ const ProfileScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [profile, setProfile] = useState([])
     const [isManager, setIsManager] = useState(false)
-    console.log("data--->",profile)
+    const [userPin, setUserPin] = useState(null);
+    // console.log("data--->",userPin)
 
     useEffect(() => {
       setLoading(true)
@@ -116,6 +118,13 @@ const ProfileScreen = ({ navigation }) => {
           setIsManager(false);
       });
     }, []);
+    useEffect(() => {
+      const fetchUserPin = async () => {
+          const storedPin = await AsyncStorage.getItem('userPin');
+          setUserPin(storedPin); // storedPin will be `null` if no value is found
+      };
+      fetchUserPin();
+  }, []);
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
@@ -137,7 +146,7 @@ const ProfileScreen = ({ navigation }) => {
           <UserName>{profile.user_name}</UserName>
           {profile.total_task&&<Designation>Total task : {profile.total_task}</Designation>}
           <EditProfileButton  onPress={() => navigation.navigate("ChangePassword")} >
-            <EditProfileButtonText>Change Your Passwod</EditProfileButtonText>
+            <EditProfileButtonText>{userPin?"Update Your PIN":"Set Your PIN"}</EditProfileButtonText>
           </EditProfileButton>
         </ProfileHeader>
         <View style={{flexDirection: 'row', paddingHorizontal:10}}>  

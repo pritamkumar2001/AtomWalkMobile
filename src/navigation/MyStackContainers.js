@@ -98,6 +98,7 @@ export function HomeStackScreen() {
       <HomeStack.Screen name="Company" component={CompanyInfoScreen} />
       <HomeStack.Screen name="AddNewLead" component={AddLeadScreen} />
       <HomeStack.Screen name="LeadStatus" component={LeadStatus} />
+      <HomeStack.Screen name="ChangePassword" component={ChangePassword} />
     </HomeStack.Navigator>
   );
 }

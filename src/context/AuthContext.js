@@ -43,9 +43,11 @@ export const AuthProvider = ({children}) => {
                 password: password,
             });
             const userToken = res.data['key']
-            console.log('After call', res.data, userToken)
+            console.log('After call', res.data, userToken);
             AsyncStorage.setItem('userToken', userToken);
-            setUserToken(userToken)
+            AsyncStorage.setItem('Password', password);
+            AsyncStorage.setItem('username', username);
+            setUserToken(userToken);
             setError('')
         } catch (err) {
             isError = true
@@ -78,7 +80,6 @@ export const AuthProvider = ({children}) => {
         AsyncStorage.removeItem('userToken');
         AsyncStorage.removeItem('companyInfo');
         AsyncStorage.removeItem('dbName');
-        
         setUserToken(null);
         setCompanyInfo([]);
         setDbName(null);
