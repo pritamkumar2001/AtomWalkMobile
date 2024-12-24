@@ -18,6 +18,7 @@ import ViewInterest from '../screens/customer/ViewInterest';
 import OrderList from '../screens/customer/OrderList'
 import CompanyInfoScreen from '../screens/CompanyInfoScreen';
 import LeadStatus from '../screens/customer/LeadStatus';
+import Status from '../screens/task/Status';
 
 const ProfileStack = createNativeStackNavigator();
 export function ProfileStackScreen() {
@@ -84,7 +85,7 @@ export function HomeStackScreen() {
     <HomeStack.Navigator 
       initialRouteName="HomeScreen"
       screenOptions={{headerShown: false}} >
-      <HomeStack.Screen name="HomeSreen" component={HomeScreen} />
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name="CustomerScreen" component={CustomerScreen} />
       <HomeStack.Screen name="LeadScreen" component={LeadScreen} />
       <HomeStack.Screen name="AddCustomerTask" component={AddCustomerTask} />
@@ -98,6 +99,7 @@ export function HomeStackScreen() {
       <HomeStack.Screen name="Company" component={CompanyInfoScreen} />
       <HomeStack.Screen name="AddNewLead" component={AddLeadScreen} />
       <HomeStack.Screen name="LeadStatus" component={LeadStatus} />
+      <HomeStack.Screen name="Status" component={Status} />
       <HomeStack.Screen name="ChangePassword" component={ChangePassword} />
     </HomeStack.Navigator>
   );

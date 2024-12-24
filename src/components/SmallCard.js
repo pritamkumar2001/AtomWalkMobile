@@ -89,7 +89,7 @@ const RectButton = styled.TouchableOpacity`
   border-radius: 20px;
   background-color:${(props) => props.bcolor || "#fff"};
   border-width: 1px;
-  border-color: #00bcd4;
+  border-color:rgb(71, 72, 72);
   align-items: center;
   justify-content: center;
 `;
@@ -104,16 +104,16 @@ const SmallCard = ({data, navigation, colour, title, subTitle, date, dateTitle, 
                     callMode, name, task_name, handleInfo,logo}) => {
     
     const cardColour = colour ? colour: colors.primary
-    
+    // console.log('Navigation Screen name', data);
     const handleNavigation = () => {
-      // console.log('Navigation Screen name', buttonScreen, data);
+     
       if (buttonScreen == 'UpdateInterest' || buttonScreen == 'UpdateTaskInterest'){
         navigation.navigate(buttonScreen,  
                             {task_id: data.task_id, variation_name_id: data.variation_name?data.variation_name.id: '', 
                              variation_value: data.variation_value, 
                              variation_name_1_id: data.variation_name_1?data.variation_name_1.id: '', variation_value_1: data.variation_value_1,
                              variation_name_2_id: data.variation_name_2?data.variation_name_2.id: '', variation_value_2: data.variation_value_2,
-                             category_id: data.category?data.category.id:'',
+                             category_id: data.category?data.category.id:'',lead_id: data.id,
                              due_date: data.due_date, product_info: data.product_info, id: data.id, 
                              call_mode: callMode? callMode:'', screen:buttonScreen,
                              name: name? name:'', task_name: task_name? task_name:''});
@@ -242,7 +242,7 @@ const SmallCard = ({data, navigation, colour, title, subTitle, date, dateTitle, 
               <Text style={{color:"#fff",fontWeight:"500"}}>Delete</Text>
             </RectButton>
           <View style={{marginTop:5,marginLeft:3}}></View>
-          <RectButton bcolor="orange"  minWidth={120} fontSize={SIZES.font} onPress={handleNavigation}>
+          <RectButton bcolor="#3c9df1"  minWidth={120} fontSize={SIZES.font} onPress={handleNavigation}>
           <MaterialIcons name="security-update-good" size={24} color="#fff" />
             <Text style={{fontWeight:"400",color:"white"}}>{buttonTittle}</Text>
           </RectButton></View></ButtonContainer>}

@@ -14,6 +14,22 @@ const ViewInterest = ({route, navigation}) => {
     // console.log('PARAMS', route.params)
     const [loading, setLoading] = useState(false);
     const [callMode, setCallMode] = useState(route.params.call_mode? route.params.call_mode: '')
+    // const [data, setData] = useState({
+    //         id: route.params.id,
+    //         task_id: route.params.task_id,
+    //         customer_id: route.params.customer_id,
+    //         lead_id: route.params.lead_id?route.params.lead_id:"",
+    //         category_id: route.params.category_id,
+    //         variation_name_id: route.params.variation_name_id,
+    //         variation_value: route.params.variation_value,
+    //         variation_name_1_id: route.params.variation_name_1_id? route.params.variation_name_1_id:'',
+    //         variation_value_1: route.params.variation_value_1? route.params.variation_value_1:'',
+    //         variation_name_2_id: route.params.variation_name_2_id? route.params.variation_name_2_id:'',
+    //         variation_value_2: route.params.variation_value_2? route.params.variation_value_2:'',
+    //         product_info: route.params.product_info,
+    //         due_date: route.params.due_date,
+    //         call_mode: route.params.task_id ? 'T' : route.params.customer_id ? 'C' : 'L',
+    //     });
     const data = route.params.data
     const delete_mode = route.params.delete_mode
     const screen = route.params.screen 

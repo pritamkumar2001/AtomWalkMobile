@@ -2,7 +2,7 @@ import React, {createContext, useState, useEffect} from 'react';
 import { publicAxiosRequest } from "../services/httpMethod";
 import { loginURL } from "../constants";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getCompanyInfo} from '../services/authServices'
+import {getCompanyInfo, getProfileInfo} from '../services/authServices'
 import { Alert } from 'react-native'
 import axios from "axios";
 
@@ -15,6 +15,7 @@ export const AuthProvider = ({children}) => {
     const [dbName, setDbName] = useState(null);
     const [error, setError] = useState('');
     const [refs,setRefs]=useState(1);
+    const[ismanagers,setIsmanagers]=useState(false);
 
     const login = async(username, password) => {
         setIsLoading(true);
@@ -112,10 +113,16 @@ export const AuthProvider = ({children}) => {
     
     useEffect( () => {
         isLoggedIn();
+        getProfileInfo().then((res) => {
+          setIsmanagers(res?.data.user_group.is_manager)
+      })
+      .catch((error) => {
+          // console.log('error', error);
+      });
     }, []);
 
     return(
-        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error,setRefs,refs}}>
+        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error,setRefs,refs,setIsmanagers,ismanagers}}>
             {children}
         </AuthContext.Provider>
     );

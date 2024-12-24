@@ -73,7 +73,7 @@ const LeadScreen = ({ navigation }) => {
             setFilterCustomers(customers);
         }
     }
-
+// console.log(filterCustomers,"ujfejf")
   return (
         <SafeAreaView style={{ flex: 1, marginBottom:0}}>
         <Loader visible={loading} />    
@@ -110,7 +110,7 @@ const LeadScreen = ({ navigation }) => {
                                                 callMode='L'
                                                 screen='LeadTasks'
                                                 handleIcon={handleTaskPressed}
-                                                handleIcon2={handleInterestPressed}
+                                                handleIcon2={()=>handleInterestPressed(item)}
                                                 handleInfo={handleStatusPressed}
                                                  />}
                 keyExtractor={(item) => item.id}
@@ -120,7 +120,7 @@ const LeadScreen = ({ navigation }) => {
         </View>
         <CustomButton 
             onPress={() => navigation.navigate("AddNewLead", {'task':null})} 
-            text={'New Lead'} 
+            text={'Add Lead'} 
             bgColor={"#4491FE"} />
     </SafeAreaView>  
       

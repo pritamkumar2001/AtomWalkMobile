@@ -44,7 +44,7 @@ const PinPassword = ({ navigation }) => {
       await AsyncStorage.setItem('userPin', pin);
       Alert.alert('Success', 'Your PIN and password have been saved.');
       setErrorMessage('');
-      navigation.navigate('Home');
+      navigation.goBack();
     } catch (error) {
       console.error(error);
       Alert.alert('Error', 'An error occurred while saving your data.');
