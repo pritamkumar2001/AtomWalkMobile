@@ -29,7 +29,12 @@ const AddLeadScreen = ({route, navigation}) => {
     const [loading, setLoading] = useState(false);
     const [taskTypeList, setTaskTypeList] = useState([]);
     const [dropDownData,setDropDownData]=useState([]);
-    const companyKeywords = ["Enterprise", "Solution", "Consultants", "Pvt.Ltd.", "Pvt.Ltd", "Technology", "Inc.", "LLC", "Corp", "Limited"];
+    const companyKeywords = [
+        "Enterprise", "Solution", "Consultants", "Pvt.Ltd.", "Pvt.Ltd", "Technology",
+        "Inc.", "LLC", "Corp", "Limited", "Holdings", "Group", "Industries",
+        "Associates", "Partners", "Services", "Co.", "S.A.", "PLC", "GmbH", "SARL",
+        "Company", "Incorporated", "Corporation", "Firm", "LLP", "AG", "Ltd."
+    ];    
     const scan = route.params.scan;
     console.log(taskTypeList,"hfbrhrfrf")
     useEffect(()=>{
@@ -74,10 +79,11 @@ const AddLeadScreen = ({route, navigation}) => {
             handleOnchange('N', 'add_task');
         }
      }
-     const isCompanyName = (line) => {
-        // Check if any keyword is present in the line (case-insensitive)
-        return companyKeywords.some(keyword => line.toLowerCase().includes(keyword.toLowerCase()));
-    };
+     const companyRegex = new RegExp(
+        "\\b(" + companyKeywords.join("|").replace(/\./g, "\\.") + ")\\b", "i"
+    );
+    const isCompanyName = (line) => companyRegex.test(line);
+    
     const validate = () => {
         Keyboard.dismiss();
         let isValid = true;
@@ -237,7 +243,7 @@ const AddLeadScreen = ({route, navigation}) => {
         
         addLead(inputs).then((res) => {
             setLoading(false);
-            ToastMsg('Lead Added Successfully');
+            ToastMsg('Lead Scan Successfully');
             // delete todo
             navigation.dispatch(CommonActions.goBack())
             // navigation.navigate('Task');

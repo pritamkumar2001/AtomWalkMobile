@@ -15,8 +15,9 @@ import Icon from 'react-native-vector-icons/Ionicons'; // Import Ionicons for th
 import { useEffect } from 'react';
 import PinPassword from '../screens/AuthScreen/PinPassword';
 import { AuthContext } from '../context/AuthContext';
+import Loader from '../components/Loader';
 const AuthScreen = () => {
-    const { login, isLoading } = useContext(AuthContext);
+    const { login, isLoading,setIsLoading } = useContext(AuthContext);
     const [mPIN, setMPIN] = useState(['', '', '', '']);
     const [attemptsRemaining, setAttemptsRemaining] = useState(5);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +68,7 @@ const AuthScreen = () => {
         }
     };
     const handleBiometricAuthentication = async () => {
+        setIsLoading(true);
         const finalUsername = await AsyncStorage.getItem('username');
         const userPassword = await AsyncStorage.getItem('Password');
         try {
@@ -85,6 +87,7 @@ const AuthScreen = () => {
     };
 
     if (isAuthenticated) {
+        setIsLoading(false);
         return <MainContainer />;
     }
 
@@ -93,6 +96,7 @@ const AuthScreen = () => {
         source={require('../../assets/images/Backgroundback.png')} // Example background image URL
         style={styles.background}
         >
+            <Loader visible={isLoading} />
             <View style={styles.overlay}>
                 <View style={styles.card}>
                     <Text style={styles.title}>Login with PIN</Text>
@@ -141,6 +145,7 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         resizeMode: 'cover',
+        zIndex:1,
     },
     overlay: {
         flex: 1,

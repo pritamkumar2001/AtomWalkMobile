@@ -140,9 +140,6 @@ const ProfileScreen = ({ navigation }) => {
         <Container>
         <ProfileHeader>
           <ProfileImage source={{ uri: profile.image }} />
-          {/* <EditIcon>
-            <Ionicons name="lock-closed-outline" size={20} color="#fff" />
-          </EditIcon> */}
           <UserName>{profile.user_name}</UserName>
           {profile.total_task&&<Designation>Total task : {profile.total_task}</Designation>}
           <EditProfileButton  onPress={() => navigation.navigate("ChangePassword")} >
@@ -150,8 +147,7 @@ const ProfileScreen = ({ navigation }) => {
           </EditProfileButton>
         </ProfileHeader>
         <View style={{flexDirection: 'row', paddingHorizontal:10}}>  
-      <Text style={{color: "#333", fontSize: 20, fontWeight: 'bold', flex: 1, paddingVertical: 0, alignSelf:'flex-start'}}>Is Manager : 
-      </Text>
+      <Text style={{color: "#333", fontSize: 20, fontWeight: 'bold', flex: 1, paddingVertical: 0, alignSelf:'flex-start'}}>Is Manager : </Text>
       {isManager ? <MaterialIcons name='check-box' size={30} color={"#007bff"}  />: 
                    <MaterialIcons name='cancel' size={30} color={colors.red} />}
       </View> 
@@ -174,40 +170,9 @@ const ProfileScreen = ({ navigation }) => {
           <LogoutButtonText>Log out</LogoutButtonText>
         </LogoutButton>
         </Container>
-      {/* <View style={{backgroundColor: colors.yellow, alignItems: 'center', padding: 10, margin:10, height:150, borderRadius:6}}>
-          <Image 
-          source={{uri: profile.image }}
-          style={{height:100, maxHeight: 150, maxWidth: 100, width:'50%', borderRadius:50}} 
-          resizeMode="contain"/>
-          <Text style={{color: colors.black, fontSize: 16, fontWeight: 'bold', paddingTop: 5}}>{profile.user_name}</Text>  
-      </View>    
-      <View>
-      <View style={{flexDirection: 'row', paddingHorizontal:10}}>  
-      <Text style={{color: colors.black, fontSize: 24, fontWeight: 'bold', flex: 1, paddingVertical: 0, alignSelf:'flex-start'}}>Is Manager : 
-      </Text>
-      {isManager ? <MaterialIcons name='check-box' size={40} color={colors.secondary}  />: 
-                   <MaterialIcons name='cancel' size={40} color={colors.red} />}
-      </View> 
-      {userToken? 
-        (<>
-         <CustomButton 
-            onPress={() => navigation.navigate("ChangePassword")} 
-            text={'Change Passwod'}
-            fgColor={colors.primary}
-            type={'LINK_ONLY'}  />
-         <CustomButton 
-            onPress={() => {logout()}} 
-            text={'Sign Out'} 
-            bgColor={'red'} />
-        </>):
-        (<CustomButton 
-            text='Sign In' 
-            onPress={() => navigation.navigate("Login")} />)  
-      }
-      </View> */}
       </ScrollView>
     </SafeAreaView>
   )
 }
 
-export default ProfileScreen
+export default ProfileScreen;

@@ -1,279 +1,281 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert, StyleSheet, Dimensions } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-
-import { SIZES, SHADOWS, assets } from "../constant_s";
-import { SubInfo, EthPrice, CardTitle } from "./SubInfo";
-import { RectButton, CircleButton } from "./Button";
 import { colors } from "../Styles/appStyle";
-import styled from 'styled-components/native';
+import * as Linking from 'expo-linking';
+import ToastMsg from "./ToastMsg";
+const { width: screenWidth } = Dimensions.get("window");
 
-const CardContainer = styled.View`
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 10px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  elevation: 3;
-  border: 1px solid #e0e0e0;
-  position: relative;
-`;
+const CardItem = ({
+  data,
+  navigation,
+  screen,
+  handleIconPress,
+  icon,
+  buttonTittle,
+  colour,
+  isAmtApplicable,
+  handleDisplayPress,
+  iconName1,
+  handleIconName1Press,
+  iconName2,
+  iconScreen2
+}) => {
+  const sub_title = data.customer ? data.customer.name : data.gstn_number ? `GSTN ${data.gstn_number}` : data.address_line_1;
+  const cardColour = colour ? colour : colors.primary;
 
-const CardDetails = styled.View`
-  /* flex: 1; */
-`;
-const LogoImage = styled.Image`
-  width: 50px;
-  height: 50px;
-`;
-const CardTitles = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-  color: #000;
-`;
-const AmountDueButton = styled.TouchableOpacity`
-  flex-direction: row;
-  /* width: 130px; */
-  height: 40px;
-  align-items: center;
-  background-color: '#fffff';
-  border: 1px solid ;
-  border-color: ${props => props.color ? '#3c9df1' : 'red'};
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: 10px;
-  margin-right: 50px;
-  justify-content: center;
-`;
-
-const AmountDue = styled.Text`
-margin-left: 5px;
-font-size: 14px;
-/* color: red; */
-color: ${props => props.color ? 'black' : 'red'};
-`;
-const AmountDues = styled.Text`
-/* margin-left: 5px; */
-font-size: 14px;
-font-weight:500;
-margin-top: 5px;
-/* margin-top: 10px; */
-/* color: red; */
-margin-right: 4px;
-color:green;
-`;
-
-const CardSubText = styled.Text`
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
-`;
-
-const ActionButtonsContainer = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10px;
-  justify-content: space-between;
-  /* align-items:end;
-  justify-content: end; */
-`;
-
-const ActionButton = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid ${props => (props.color ? 'white' : '#00bcd4')};
-  border-radius: 20px;
-  padding: 9px 12px;
-  margin-right: 10px;
-  background-color: ${props => (props.disabled ? '#f5f5f5' : '#fff')};
-`;
-const ActionButton2 = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid ${props => (props.color ? 'white' : '#00bcd4')};
-  border-radius: 20px;
-  margin-right: 10px;
-  margin-top: 5px;
-  background-color: ${props => (props.disabled ? '#f5f5f5' : '#fff')};
-`;
-
-const ActionButtonText = styled.Text`
-  font-size: 14px;
-  color: ${props => (props.disabled ? 'black' : 'black')};
-  margin-left: 5px;
-  font-weight: 500;
-`;
-
-const AssignTaskButton = styled.TouchableOpacity`
-  background-color:  ${props => (props.color ? '#007bff' : 'red')};
-  border-radius: 20px;
-  padding: 10px 10px;
-`;
-
-const AssignTaskText = styled.Text`
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-`;
-
-const ProfileIconContainer = styled.View`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: #ffff;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 20px;
-  right: 18px;
-`;
-const CardItem = ({data, navigation, screen, handleIconPress, icon, buttonTittle, colour, isAmtApplicable, 
-                   handleDisplayPress, iconName1, handleIconName1Press, iconName2, iconScreen2 }) => {
-    const sub_title = data.customer?data.customer.name: data.gstn_number? `GSTN ${data.gstn_number}`: data.address_line_1
-    const cardColour = colour ? colour: colors.primary
-    
-    const handleNavigation = () => {
-      console.log('Screen name', screen);
-      if (screen == 'CustomerTasks'){
-        navigation.navigate('CustomerTasks',  {customer_id: data.id, name: data.name, lead_id: '', call_mode:'C' });
-      }else if (screen == 'LeadTasks'){
-        navigation.navigate('CustomerTasks',  {customer_id: '', name: data.name, lead_id: data.id, call_mode:'L' });
-      } else if (screen == 'ProductInterest' || screen == 'TaskInterest') {
-        navigation.navigate(screen,  {task_id: data.id, screen: screen,
-          name: data.customer? data.customer.name: data.lead? data.lead.name:'', task_name: data.name,
-          call_mode: data.customer? 'C': data.lead? 'L':'' });
-      } 
-      else {
-        navigation.navigate(screen, { data });
-      }
-
+  const handleNavigation = () => {
+    console.log('Screen name', screen);
+    if (screen == 'CustomerTasks') {
+      navigation.navigate('CustomerTasks', { customer_id: data.id, name: data.name, lead_id: '', call_mode: 'C' });
+    } else if (screen == 'LeadTasks') {
+      navigation.navigate('CustomerTasks', { customer_id: '', name: data.name, lead_id: data.id, call_mode: 'L' });
+    } else if (screen == 'ProductInterest' || screen == 'TaskInterest') {
+      navigation.navigate(screen, {
+        task_id: data.id,
+        screen: screen,
+        name: data.customer ? data.customer.name : data.lead ? data.lead.name : '',
+        task_name: data.name,
+        call_mode: data.customer ? 'C' : data.lead ? 'L' : ''
+      });
+    } else {
+      navigation.navigate(screen, { data });
     }
+  };
 
-    
   const handleIconNavigation2 = () => {
-      console.log('Icon Screen name', iconScreen2, data);
-      if (iconScreen2 == 'ViewInterest'){
-          navigation.navigate(iconScreen2, {data: data, call_mode: callMode, delete_mode: 'Y'});
-      } 
-      else if (iconScreen2 == 'InvoiceSendMail') {
-          Alert.alert('Not Enabled')
-      }
-      else {
-        navigation.navigate(buttonScreen, { data });
-      }
-
+    console.log('Icon Screen name', iconScreen2, data);
+    if (iconScreen2 == 'ViewInterest') {
+      navigation.navigate(iconScreen2, { data: data, call_mode: callMode, delete_mode: 'Y' });
+    } else if (iconScreen2 == 'InvoiceSendMail') {
+      Alert.alert('Not Enabled');
+    } else {
+      navigation.navigate(buttonScreen, { data });
     }
-    return (
-      <CardContainer>
-      <ProfileIconContainer>
-      <LogoImage source={{ uri: data.customer?data.customer.image: data.image }} />
-      </ProfileIconContainer>
-        <CardTitles>{data.name}</CardTitles>
-        {sub_title&&<CardSubText>{sub_title}</CardSubText>}
-        {data.task_date &&<CardSubText>Planned on: {data.task_date}</CardSubText>}
-        {isAmtApplicable&&data.outstanding_amt?<ActionButton2 color={true} onPress={() => handleDisplayPress({data})}>
+  };
+
+  const openWhatsApp = (Mobile) => {
+    if (Mobile){
+         Linking.openURL(`https://wa.me/${Mobile}`);
+    }
+    else{
+      ToastMsg('Please add Mobile Number in lead details');
+    }
+   
+    };
+
+    const openEmail = (emails) => {
+      if(emails){
+         Linking.openURL(`mailto:${emails}`);
+      }
+      else{
+        ToastMsg('Please add Email Address in lead details');
+      }
+     
+    };
+
+    const openPhone = (Mobile) => {
+      if(Mobile){
+          Linking.openURL(`tel:${Mobile}`);
+      }
+      else{
+        ToastMsg('Please add Mobile Number in lead details');
+      }
+    
+    };
+
+  return (
+    <View style={styles.cardContainer}>
+       <View style={styles.cardContainers}>
+      <View style={styles.profileIconContainer}>
+        <Image
+          source={{ uri: data.customer ? data.customer.image : data.image }}
+          style={styles.logoImage}
+        />
+      </View>
+      <Text style={styles.cardTitle}>{data.name}</Text>
+      {sub_title && <Text style={styles.cardSubText}>{sub_title}</Text>}
+      {data.task_date && <Text style={styles.cardSubText}>Planned on: {data.task_date}</Text>}
+      {data.mobile_number&& <Text style={styles.cardSubTexts}>Mobile No: {data.mobile_number}</Text>}
+      {isAmtApplicable && data.outstanding_amt ? (
+        <TouchableOpacity
+          style={styles.actionButton2}
+          onPress={() => handleDisplayPress({ data })}
+        >
           <FontAwesome name="rupee" size={20} color="red" />
-          <AmountDue>{data.outstanding_amt} - DUE AMT</AmountDue>
-        </ActionButton2>:isAmtApplicable&&<AmountDues>NO OUTSTANDING</AmountDues>}
-        <ActionButtonsContainer>
-          {iconName1&&<ActionButton onPress={() =>   handleIconName1Press(data)}>
+          <Text style={[styles.amountDue, { color: 'red' }]}>{data.outstanding_amt} - DUE AMT</Text>
+        </TouchableOpacity>
+      ) : isAmtApplicable && (
+        <Text style={styles.noOutstanding}>NO OUTSTANDING</Text>
+      )}
+      <View style={styles.actionButtonsContainer}>
+        {iconName1 && (
+          <TouchableOpacity style={styles.actionButton} onPress={() => handleIconName1Press(data)}>
             <FontAwesome5 name="eye" size={16} color="gray" />
-            <ActionButtonText>Task</ActionButtonText>
-          </ActionButton>}
-          <ActionButton onPress={()=>handleNavigation()}>
-            <FontAwesome5 name="th-list" size={16} color="#aaa" />
-            <ActionButtonText disabled>{buttonTittle}</ActionButtonText>
-          </ActionButton>
-          <AssignTaskButton color={buttonTittle!='Product Interest'?true:false} onPress={()=>handleIconPress(data)}>
-            {buttonTittle!='Product Interest'?<AssignTaskText>Add Task</AssignTaskText>:<AssignTaskText>Assign Task</AssignTaskText>}
-          </AssignTaskButton>
-        </ActionButtonsContainer>
-      
-    </CardContainer>
-    );
+            <Text style={styles.actionButtonText}>Task</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={[styles.actionButton, { width: buttonTittle == 'Task list' ? '48%' : 'auto' }]}  onPress={handleNavigation}>
+          <FontAwesome5 name="th-list" size={16} color="#aaa" />
+          <Text style={styles.actionButtonText}>{buttonTittle}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.assignTaskButton, { backgroundColor: buttonTittle !== 'Product Interest' ? '#007bff' : 'red' ,width: buttonTittle != 'Product Interest' ? '48%' : 'auto' }] }
+          onPress={() => handleIconPress(data)}
+        >
+          <Text style={styles.assignTaskText}>
+            {buttonTittle !== 'Product Interest' ? 'Add Task' : 'Assign Task'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      </View>
+      {screen=="CustomerTasks"&& <View style={styles.topIconsContainer}>
+          <TouchableOpacity onPress={() => openWhatsApp(data.mobile_number)} style={styles.iconButton}>
+            <FontAwesome5 name="whatsapp" size={24} color="#25D366" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => openEmail(data.email_id)} style={styles.iconButton}>
+            <MaterialIcons name="email" size={24} color="#D44638" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => openPhone(data.mobile_number)} style={styles.iconButton}>
+            <FontAwesome5 name="phone" size={24} color="#34B7F1" />
+          </TouchableOpacity>
+        </View>}
+ 
+    </View>
+  );
 };
 
-export default CardItem
+const styles = StyleSheet.create({
+  topIconsContainer: {
+    width:'100%',
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: '#F9F9F9',
+    borderRadius: 10,
+  },
+  iconButton: {
+    padding: 8,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardContainers:{
+    padding: 15,
+  },
+  cardContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    margin: 10,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+    position: 'relative',
+  },
+  profileIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 20,
+    right: 18,
+  },
+  logoImage: {
+    width: 50,
+    height: 50,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000',
+    maxWidth:300,
+  },
+  cardSubText: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
+    maxWidth:300,
+  },
+  cardSubTexts: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
+    maxWidth:300,
+    fontWeight: 'bold',
+  },
+  actionButtonsContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    justifyContent: 'space-between',
+    gap:5,
+  },
+  actionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#00bcd4',
+    borderRadius: 20,
+    paddingVertical: 9,
+    paddingHorizontal: 8,
+    // marginRight: 10,
+    backgroundColor: '#fff',
+  },
+  actionButton2: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    fontWeight: '500',
+    padding: 2,
+    marginTop: 10,
+    marginRight: 50,
+    // justifyContent: 'center',
+  },
+  actionButtonText: {
+    fontSize: 14,
+    color: 'black',
+    marginLeft: 5,
+    fontWeight: '500',
+  },
+  amountDue: {
+    marginLeft: 5,
+    fontSize: 14,
+  },
+  noOutstanding: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: 5,
+    color: 'green',
+  },
+  assignTaskButton: {
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  assignTaskText: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+});
 
-
-// return (
-//   <View
-//     style={{
-//       backgroundColor: cardColour,
-//       borderRadius: SIZES.font,
-//       marginBottom: SIZES.extraLarge,
-//       margin: SIZES.base,
-//       ...SHADOWS.dark,
-//     }}
-//   >
-//     <View
-//       style={{
-//         width: "100%",
-//         height:80,
-//       }}
-//     >
-//       <Image
-//         source={{ uri: data.customer?data.customer.image: data.image }}
-//         resizeMode="contain"
-//         style={{
-//           width: "40%",
-//           height: "80%",
-//           borderRadius: SIZES.font,
-//           marginTop:10,
-//           marginLeft:10,
-//           borderTopRightRadius: SIZES.font,
-//         }}
-//       />
-
-//       <CircleButton imgUrl={assets.heart} 
-//                     handlePress={handleIconPress} data={data} icon={icon} right={10} top={10} />
-//     </View>
-        
-//     {data.task_date && (<SubInfo task_date={data.task_date}/>)}    
-    
-//     <View style={{ width: "100%", padding: SIZES.font }}>
-//       <CardTitle
-//         title={data.name}
-//         subTitle={sub_title}
-//         titleSize={SIZES.extraLarge}
-//         subTitleSize={SIZES.small}
-//       />
-      
-//       <View
-//         style={{
-//           marginTop: SIZES.font,
-//           flexDirection: "row",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//         }}
-//       >
-//         {isAmtApplicable && (<EthPrice price={data.outstanding_amt}
-//                                        data={data}
-//                                        handlePress={ handleDisplayPress }/>)}
-//         { iconName1 && (
-//         <CircleButton imgUrl={assets.heart} 
-//                     handlePress= {handleIconName1Press} data={data} icon={iconName1} right={0} bottom={5} />  
-//           )}
-//         { iconName2 && (
-//           <CircleButton imgUrl={assets.heart} 
-//                     handlePress={handleIconNavigation2} data={data} icon={iconName2} right={50} bottom={5} />  
-//           )}
-        
-//         <RectButton
-//           minWidth={120}
-//           fontSize={SIZES.font}
-//           handlePress={handleNavigation}
-//           title={buttonTittle}
-//         />
-        
-//       </View>
-//     </View>
-//   </View>
-// );
-// };
+export default CardItem;

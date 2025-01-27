@@ -1,170 +1,192 @@
-import { View, Text, StyleSheet, ImageBackground ,Image, SafeAreaView, ScrollView, StatusBar, useWindowDimensions,TouchableOpacity } from 'react-native'
-import React, {useState, useContext} from 'react'
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  Dimensions, 
+  Image, 
+  StatusBar, 
+  ScrollView, 
+  TouchableOpacity 
+} from 'react-native';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import Header from '../components/Header';
-import CustomButton from '../components/CustomButton';
-import { colors } from '../Styles/appStyle'
-import Logo from '../../assets/background.jpg'
-import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Logos from '../../assets/images/Atom_walk_logo.jpg';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import PinPopup from '../components/PinPopup';
-const AppContainer =  styled.View`
-  flex: 1;
-  background-color: #f5f5f5;
-`;
-const Headers = styled.View`
-  background-color:#4285f4;
-  padding: 20px;
-  padding-top: 60px;
-  padding-bottom: 105px;
-  align-items: center;
-`;
-const ProfileImage = styled.Image`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border: 3px solid white;
-  margin-bottom: 10px;
-`;
-const Title = styled.Text`
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-`;
-const WelcomeText = styled.Text`
-  color: white;
-  font-size: 16px;
-  margin-top: 5px;
-`;
-const TbaView=styled.View`
-display: flex;
-align-items: center;
-justify-content: center;
-`;
-const ListContainers = styled.ScrollView.attrs({
-  showsVerticalScrollIndicator: false,
-  showsHorizontalScrollIndicator: false,
-})`
-  padding-left: 20px;
-  padding-right:20px;
-  padding-top:20px;
-`;
-const ListContainer = styled.View`
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`;
-const ListItem = styled(TouchableOpacity)`
-  background-color: ${(props) => props.backgroundColor || '#ffffff'};
-  padding: 20px;
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 47%;  
-  margin-bottom: 10px;
-  elevation: 3;
-`;
-const ListText = styled.Text`
-  font-size: 16px;
-  color: #454545;
-  font-weight: 500;
-  margin-top: 10px;
-  text-align: center;
-`;
-const ListItem2 = styled(TouchableOpacity)`
-  padding: 20px;
-  margin: 2px;
-  border-radius: 10px;
-  align-items: center;
-  justify-content: center;
-  width: 47%;  // Two items per row with spacing
-  /* margin-bottom: 35px; */
-  elevation: 3;
-  background-color: ${(props) => props.backgroundColor || '#ffffff'};
-`;
-const BackGround = styled.View`
-width: 60px;
-background-color: #4285f4;
-height: 60px;
-border-radius:60px;
-display: flex;
-align-items: center;
-justify-content: center;
-/* border-radius: 50%; */
-`;
-  const HomeScreen = ({ navigation }) => {
-  const {companyInfo,ismanagers} = useContext(AuthContext);
+import { getProfileInfo } from '../services/authServices';
+
+const screenWidth = Dimensions.get('window').width;
+
+const HomeScreen = ({ navigation }) => {
+  const { companyInfo } = useContext(AuthContext);
+  const [isManagers, setIsManagers] = useState(false);
+
+  useEffect(() => {
+    getProfileInfo()
+      .then((res) => {
+        setIsManagers(res?.data.user_group.is_manager);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
   const onSelect = () => {
-    navigation.navigate('ChangePassword')
-  }
-  // console.log(ismanagers,"hdbedbe")
+    navigation.navigate('ChangePassword');
+  };
+
   return (
-      <>
-        <StatusBar barStyle="light-content" backgroundColor="#4285f4" />
-      <AppContainer>
-       <Headers  source={Logo}>
-       <ProfileImage 
-      source={
-      companyInfo && typeof companyInfo?.image === 'string' 
-      ? { uri: companyInfo.image }
-      : Logos 
-          }
-/>
-        <Title>{companyInfo?companyInfo.name:''}</Title>
-        <WelcomeText>Welcome to Atomwalk Office</WelcomeText>
-      </Headers>
-      <TbaView>
-      </TbaView>
-      <ListContainers>
-      <ListContainer>
-        <ListItem  backgroundColor="#e1e5fc"  onPress={() => navigation.navigate('CustomerScreen')}>
-          <BackGround>
-          <Icon name="people-outline" size={30} color="#fff" />
-          </BackGround><ListText>My Customers</ListText>
-        </ListItem>
-        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('OrderList', {cust_id:'', cust_name:''})}>
-        <BackGround>
-          <Icon name="file-tray-full-outline" size={30} color="#fff" />
-          </BackGround>
-          <ListText>Invoice Status</ListText>
-        </ListItem>
-        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('LeadScreen')}>
-        <BackGround>
-        <FontAwesome6 name="people-group" size={25} color="#fff" />
-        </BackGround>
-          <ListText>My Leads</ListText>
-        </ListItem>
-        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate("AddNewLead", {'task':null,'scan':true})}>
-        <BackGround>
-        <AntDesign name="scan1" size={24} color="#fff" />
-        </BackGround>
-        <ListText>Scan Lead</ListText>
-        </ListItem>
-       {ismanagers&&<ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate("Status")}>
-        <BackGround>
-        <Entypo name="bar-graph" size={24} color="#fff" />
-        </BackGround>
-        <ListText>Product Interest</ListText>
-        </ListItem>}
-        <ListItem backgroundColor="#e1e5fc" onPress={() => navigation.navigate('Company')}>
-        <BackGround>
-          <Icon name="business-outline" size={30} color="#fff" />
-          </BackGround>
-          <ListText>Company Info</ListText>
-        </ListItem>
-      </ListContainer>
-      </ListContainers>
-    </AppContainer>
-    <PinPopup navigation={onSelect}></PinPopup>
-      </>
-  )
-}
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#4285f4" />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={
+              companyInfo && typeof companyInfo?.image === 'string'
+                ? { uri: companyInfo.image }
+                : require('../../assets/images/Atom_walk_logo.jpg')
+            }
+            style={styles.profileImage}
+          />
+          <Text style={styles.title}>{companyInfo ? companyInfo.name : ''}</Text>
+          <Text style={styles.welcomeText}>Welcome to Atomwalk Office</Text>
+        </View>
+        <ScrollView contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false} 
+        showsHorizontalScrollIndicator={false}>
+          <View style={styles.listContainer}>
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('CustomerScreen')}
+            >
+              <View style={styles.iconBackground}>
+                <Icon name="people-outline" size={30} color="#fff" />
+              </View>
+              <Text style={styles.listText}>My Customers</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('OrderList', { cust_id: '', cust_name: '' })}
+            >
+              <View style={styles.iconBackground}>
+                <Icon name="file-tray-full-outline" size={30} color="#fff" />
+              </View>
+              <Text style={styles.listText}>Invoice Status</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('LeadScreen')}
+            >
+              <View style={styles.iconBackground}>
+                <FontAwesome6 name="people-group" size={25} color="#fff" />
+              </View>
+              <Text style={styles.listText}>My Leads</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('AddNewLead', { task: null, scan: true })}
+            >
+              <View style={styles.iconBackground}>
+                <AntDesign name="scan1" size={24} color="#fff" />
+              </View>
+              <Text style={styles.listText}>Scan Lead</Text>
+            </TouchableOpacity>
+            {isManagers && (
+              <TouchableOpacity
+                style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+                onPress={() => navigation.navigate('Status')}
+              >
+                <View style={styles.iconBackground}>
+                  <Entypo name="bar-graph" size={24} color="#fff" />
+                </View>
+                <Text style={styles.listText}>Product Interest</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('Company')}
+            >
+              <View style={styles.iconBackground}>
+                <Icon name="business-outline" size={30} color="#fff" />
+              </View>
+              <Text style={styles.listText}>Company Info</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
+      <PinPopup navigation={onSelect} />
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    
+  },
+  header: {
+    backgroundColor: '#4285f4',
+    padding: 20,
+    paddingTop: 60,
+    paddingBottom: 105,
+    alignItems: 'center',
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: 'white',
+    marginBottom: 10,
+    resizeMode: 'stretch',
+  },
+  title: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  welcomeText: {
+    color: 'white',
+    fontSize: 16,
+    marginTop: 5,
+  },
+  scrollContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  listContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 15,
+  },
+  listItem: {
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: (screenWidth - 60) / 2, // Dynamic width calculation
+    marginBottom: 20,
+    elevation: 3,
+  },
+  listText: {
+    fontSize: 16,
+    color: '#454545',
+    fontWeight: '500',
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  iconBackground: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#4285f4',
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
 export default HomeScreen;

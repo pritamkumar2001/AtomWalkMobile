@@ -86,7 +86,7 @@ const CustomerTasks = ({ route, navigation }) => {
       <Header 
             label='Task Details'
             image=''
-            icon='arrow-with-circle-left'
+            icon='arrow-left'
             onPress={onBackPressed}
             subTitle={customer_name}
             

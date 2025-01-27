@@ -16,7 +16,24 @@ export const AuthProvider = ({children}) => {
     const [error, setError] = useState('');
     const [refs,setRefs]=useState(1);
     const[ismanagers,setIsmanagers]=useState(false);
-
+    useEffect(() => {
+        const fetchToken = async () => {
+          try {
+            const token = await AsyncStorage.getItem('userToken');
+            const username = await AsyncStorage.getItem('username');
+            const password = await AsyncStorage.getItem('Password');
+            if (token) {
+              setUserToken(token);
+              login(username, password);
+            }
+          } catch (error) {
+            console.error('Failed to fetch the token:', error);
+          }
+        };
+    
+        fetchToken();
+      
+      }, []);
     const login = async(username, password) => {
         setIsLoading(true);
         let isError = false;
@@ -111,18 +128,9 @@ export const AuthProvider = ({children}) => {
         }
     }
     
-    useEffect( () => {
-        isLoggedIn();
-        getProfileInfo().then((res) => {
-          setIsmanagers(res?.data.user_group.is_manager)
-      })
-      .catch((error) => {
-          // console.log('error', error);
-      });
-    }, []);
 
     return(
-        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error,setRefs,refs,setIsmanagers,ismanagers}}>
+        <AuthContext.Provider value={{login, logout, isLoading, userToken, companyInfo, dbName, error,setRefs,refs,setIsmanagers,ismanagers,setIsLoading}}>
             {children}
         </AuthContext.Provider>
     );

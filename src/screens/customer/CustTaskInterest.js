@@ -13,7 +13,8 @@ const CustTaskInterest = ({ route, navigation }) => {
   const [taskId, setTaskId] = useState(route.params.task_id);
   const [customerId, setCustomerId] = useState(route.params.customer_id);
   const [leadId, setLeadId] = useState(route.params.lead_id);
-
+const Mobile=route.params.Mobile;
+const emails=route.params.emails;
   const subTitle = (route.params.call_mode=='L')? 'LEAD - '  + route.params.name : 'CUSTOMER: ' + route.params.name 
   const pageTitle =  route.params.task_name?'Interest For Task: ' + route.params.task_name :''
   const screen = route.params.screen
@@ -42,7 +43,7 @@ const CustTaskInterest = ({ route, navigation }) => {
       <Header 
             label='Product Interests'
             image=''
-            icon='arrow-with-circle-left'
+            icon='arrow-left'
             onPress={onBackPressed}
             subTitle={subTitle}
             
@@ -60,6 +61,8 @@ const CustTaskInterest = ({ route, navigation }) => {
           renderItem={({ item }) => <SmallCard data={item}
                                               navigation={navigation} 
                                               colour={colors.yellow}
+                                              Mobile={Mobile}
+                                              emails={emails}
                                               subTitle={(item.variation_name?item.variation_name.name + ' - ' + item.variation_value:'') + 
                                                         (item.variation_name_1? ' | ' + item.variation_name_1.name + ' - ' + item.variation_value_1: '') +
                                                         (item.variation_name_2? ' | ' + item.variation_name_2.name + ' - ' + item.variation_value_2: '')}

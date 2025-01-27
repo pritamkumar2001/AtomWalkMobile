@@ -47,7 +47,7 @@ const OrderList = ({ route, navigation }) => {
     }
     
 }
-
+console.log(filterInvData,"data")
   return (
    
     <SafeAreaView style={{ flex: 1 }}>

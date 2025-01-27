@@ -71,7 +71,7 @@ const productPieData = Object.entries(variationCount).map(([variation, count], i
         label="Lead Product Interest"
         image=""
         onPress={onBackPressed}
-        icon="arrow-with-circle-left"
+        icon="arrow-left"
       />
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Bar Chart */}
@@ -176,8 +176,7 @@ const styles = StyleSheet.create({
     leadName: {
       fontSize: 16,
     },
-    leadCar: {
-      fontSize: 16,
-      fontWeight: "bold",
+    leadCategory: {
+      // fontSize: 16,
     },
   });

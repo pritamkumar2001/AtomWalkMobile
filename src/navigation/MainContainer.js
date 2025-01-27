@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 
 const MainContainer = () => {
     const {isLoading, userToken, error} = useContext(AuthContext);
-    // console.log('Main container', userToken)
+    console.log('Main container', userToken)
 
   if (isLoading){
     return(

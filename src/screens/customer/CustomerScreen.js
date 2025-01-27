@@ -13,7 +13,7 @@ const CustomerScreen = ({ navigation }) => {
     const [customers, setCustomers] = useState([]);
     const [filterCustomers, setFilterCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
-    
+    console.log(filterCustomers,"loopdata")
     useEffect(() => {
         setLoading(true)
         getCustomerDetailList()
@@ -61,7 +61,7 @@ const CustomerScreen = ({ navigation }) => {
         <Header 
             label={'My Customers'  + ' (' + filterCustomers.length +')'}
             image=''
-            icon='arrow-with-circle-left'
+            icon='arrow-left'
             onPress={onBackPressed}
         />
         <SearchInput label='Search Company Name ...'

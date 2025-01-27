@@ -25,6 +25,7 @@ const MapContainer = styled.View`
 
 const ButtonSection = styled.View`
   flex-direction: row;
+  z-index: 1;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 40px;
@@ -74,7 +75,7 @@ const ActionButton1 = styled.TouchableOpacity`
   margin-bottom: 10px;
   border: 1px solid #454545;
   border-radius: 15px;
-  width: 48%;
+  width: 46%;
   elevation: 3; /* Add shadow for Android */
   shadow-color: #000; /* Add shadow for iOS */
   /* shadow-offset: { width: 0, height: 2 }; */
@@ -95,8 +96,6 @@ const ButtonText1 = styled.Text`
   margin-left: 5px;
   text-align: center;
 `;
-
-
 
 const TaskDetailScreen = ({route, navigation}) => {
 
@@ -141,10 +140,12 @@ const TaskDetailScreen = ({route, navigation}) => {
       }
     };
     const getLocation = async (data,messages) => {
+      setLoading(true);
       setMessage(messages)
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
+        setLoading(false);
         return;
       }
       let { coords } = await Location.getCurrentPositionAsync({});
@@ -175,7 +176,7 @@ const TaskDetailScreen = ({route, navigation}) => {
       }
 
     }
-    console.log('Screenname', data);
+    // console.log('Screenname', data);
     const handleAssignUser = () => {
  
       if (screen == 'TaskDetail'){
@@ -212,14 +213,14 @@ const TaskDetailScreen = ({route, navigation}) => {
       }
 
     }
-const updateLocation=(lcType,location)=>{
-    UpdateGeoLocations({id:data.id,
+const updateLocation=async(lcType,location)=>{
+    await UpdateGeoLocations({id:data.id,
       geo_type:lcType,
       latitude_id:`${location&&location.latitude}`,
       longitude_id:`${location&&location.longitude}`,
       time:currentTime}).then((res) => {
       setLoading(false);
-        setShowalert(true);
+      setShowalert(true);
       })
       .catch((error) => {
       alert('Something went wrong');
@@ -231,15 +232,17 @@ const updateLocation=(lcType,location)=>{
 console.log("location",location)
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Loader visible={loading} /> 
       <Header 
             label='Task Details'
             image=''
-            icon='arrow-with-circle-left'
+            icon='arrow-left'
             onPress={onBackPressed}
             // subTitle={data.name}
             
       />
+      <ScrollView
+                   showsVerticalScrollIndicator={false} 
+                   showsHorizontalScrollIndicator={false}>
 
       {!showMap&&<View style={{ marginHorizontal:10 }}>
         <DetailCard colour={colors.grey}
@@ -290,7 +293,7 @@ console.log("location",location)
             <ButtonText color="#fff">Assign To User</ButtonText>
           </ActionButton2>
           </View>
-      </View> }
+      </View>  }
       {showMap && location && (
           <MapContainer>
             <MapView
@@ -313,6 +316,8 @@ console.log("location",location)
           </MapContainer>
         )}
         {showalert&&<CustomAlert data={data} screen={screen} message={message} route={route} navigation={navigation}showalert={showalert}name={data.name}></CustomAlert>}
+        <Loader visible={loading} /> 
+        </ScrollView>
    </SafeAreaView>
   );
 };

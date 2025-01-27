@@ -10,11 +10,18 @@ import { getLeadDataList } from '../../services/productServices';
 import { colors } from '../../Styles/appStyle';
 
 
-const LeadScreen = ({ navigation }) => {
+const LeadScreen = ({ navigation ,route }) => {
     const [customers, setCustomers] = useState([]);
     const [filterCustomers, setFilterCustomers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [isStatusUpdated, setIsStatusUpdated] = useState(false);
+    const companydata = route.params?.Company_name? route.params?.Company_name : '';
+useEffect(() => {
+    if(companydata){
+    serchFilter(companydata);
+     }
+}, [companydata]);
+
 
     useEffect(() => {
         setLoading(true)
@@ -34,15 +41,17 @@ const LeadScreen = ({ navigation }) => {
     }
 
     const handleTaskPressed = (item) => {
-        navigation.navigate("AddCustomerTask", {customer_id: item.id, selected_type: 'L', },)
+        console.log(item?.company_name,"item?.company_name")
+        navigation.navigate("AddCustomerTask", {customer_id: item.id, selected_type: 'L', Company_name:item?.company_name,},)
     }
 
     const handleInterestPressed = (item) => {
 
-        // console.log('handleInterestPressed', item)
+        console.log('handleInterestPresse', item)
         navigation.navigate('ProductInterest',  {task_id: '', customer_id:'', lead_id: item.id, 
                                                  screen: 'ProductInterest', name: item.name, task_name: '',
-                                                 call_mode: 'L'});
+                                                 call_mode: 'L', Mobile:item.mobile_number,
+                                                 emails:item.email_id});
     }
 
     const handleStatusPressed = (item) => {
@@ -96,7 +105,9 @@ const LeadScreen = ({ navigation }) => {
                                                 navigation={navigation} 
                                                 colour={"#fff9cc"}
                                                 title={item.company_name? item.company_name + ' [' + item.name + ']' : item.name}
-                                                subTitle={item.mobile_number? 'M: ' + item.mobile_number : 'Email: ' + item.email_id}
+                                                subTitle={item.mobile_number? 'Mobile No: ' + item.mobile_number : 'Email: ' + item.email_id}
+                                                Mobile={item.mobile_number}
+                                                emails={item.email_id}
                                                 date={item.qualified_date? item.qualified_date: item.record_date}
                                                 dateColour={item.qualified_date? colors.green: colors.black}
                                                 dateTitle={ item.status_display}
@@ -109,7 +120,7 @@ const LeadScreen = ({ navigation }) => {
                                                 iconScreen=''
                                                 callMode='L'
                                                 screen='LeadTasks'
-                                                handleIcon={handleTaskPressed}
+                                                handleIcon={()=>handleTaskPressed(item)}
                                                 handleIcon2={()=>handleInterestPressed(item)}
                                                 handleInfo={handleStatusPressed}
                                                  />}

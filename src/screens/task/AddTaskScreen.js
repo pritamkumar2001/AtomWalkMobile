@@ -107,10 +107,10 @@ const AddTaskScreen = ({route, navigation}) => {
       
     };
 
-    const handleTaskData = () => {
+    const handleTaskData =async () => {
         setLoading(true);
         
-        addTask(inputs).then((res) => {
+       await addTask(inputs).then((res) => {
             setLoading(false);
             ToastMsg('Task Added Successfully');
             // delete todo

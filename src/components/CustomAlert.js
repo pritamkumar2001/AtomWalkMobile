@@ -16,7 +16,7 @@ const CustomAlert = ({showalert,route, navigation,name,message,data,screen}) => 
       navigation.navigate('CustomerTasks',  {customer_id: '', name: data.name, lead_id: data.id, call_mode:'L',refresh: name });
     }
     else{
-          navigation.navigate('TaskSreen', { refresh: name });
+      navigation.navigate('CustomerTasks',  {customer_id: '', name: data.name, lead_id: data.id, call_mode:'L',refresh: name });
     }
 
   }

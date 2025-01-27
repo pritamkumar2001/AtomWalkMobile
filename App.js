@@ -25,19 +25,16 @@ export default function App() {
   }, []);
 
   if (loading) {
-    // Show a loading spinner or screen while AsyncStorage is being fetched
     return (
       <AuthProvider>
-        <MainContainer>
-          <Text>Loading...</Text>
-        </MainContainer>
+        <MainContainer/>
       </AuthProvider>
     );
   }
 
   return (
     <AuthProvider>
-      {correctMPIN ? <AuthScreen /> :  <MainContainer />}
+      {correctMPIN ? <AuthScreen />:<MainContainer />}
     </AuthProvider>
   );
 }

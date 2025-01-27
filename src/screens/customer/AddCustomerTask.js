@@ -33,7 +33,7 @@ const AddCustomerTask = ({route, navigation}) => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     
-    // console.log(inputs.selected_type, inputs.customer_id)
+    console.log("inputs",inputs)
     
     const onSelect = (item) => {
         handleOnchange(item, 'task_type')
@@ -69,8 +69,8 @@ const AddCustomerTask = ({route, navigation}) => {
             setLoading(false);
             ToastMsg('Task Added Successfully');
             // delete todo
-            navigation.navigate('CustomerScreen');
-            // navigation.navigate('Task');
+            // navigation.pop();
+            navigation.navigate(route.params.selected_type=='L'?'LeadScreen':'CustomerScreen',{Company_name:route.params?.Company_name});
             })
             .catch((error) => {
                 setLoading(false);

@@ -8,7 +8,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const CompanyInfoScreen = ({ navigation }) => {
     const {companyInfo} = useContext(AuthContext);
-    
+    console.log('Company Info', companyInfo)
     const onBackPressed = () => {
         navigation.pop();
     }
@@ -18,7 +18,7 @@ const CompanyInfoScreen = ({ navigation }) => {
       <Header label='Company Details'
               image={companyInfo?companyInfo.image:''}
               onPress={onBackPressed}
-              icon='arrow-with-circle-left'
+              icon='arrow-left'
             
         />
       
