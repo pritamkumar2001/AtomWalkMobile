@@ -38,7 +38,7 @@ const UpdateTaskInterest = ({ route, navigation }) => {
     const [screen, setScreen] = useState(route.params.screen || '');
     const subTitle = callMode === 'L' ? `LEAD - ${route.params.name}` : `CUSTOMER: ${route.params.name}`;
     const pageTitle = route.params.task_name ? `Interest For Task: ${route.params.task_name}` : '';
-console.log(inputs,"hbrbfr")
+console.log(route?.params?.company_name,"hbrbfr")
     useEffect(() => {
         setLoading(true); 
         // Fetch variation names
@@ -145,9 +145,12 @@ console.log(inputs,"hbrbfr")
                         call_mode: callMode,
                     });
                 } else if (callMode === 'L') {
-                    navigation.navigate('LeadScreen');
-                } else {
+                    navigation.navigate('LeadScreen',{Company_name:route?.params?.company_name});
+                } else if(callMode === 'C') {
                     navigation.navigate('CustomerScreen');
+                }
+                else{
+                    navigation.pop(''); 
                 }
             })
             .catch((error) => {

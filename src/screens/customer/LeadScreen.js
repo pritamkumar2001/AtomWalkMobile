@@ -6,7 +6,7 @@ import SearchInput from '../../components/SearchInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import ToastMsg from '../../components/ToastMsg';
 import  Loader  from '../../components/Loader';
-import { getLeadDataList } from '../../services/productServices';
+import { getLeadDataList, getUserTasks } from '../../services/productServices';
 import { colors } from '../../Styles/appStyle';
 
 
@@ -22,7 +22,7 @@ useEffect(() => {
      }
 }, [companydata]);
 
-
+// console.log(filterCustomers,"filterCustomers")
     useEffect(() => {
         setLoading(true)
         getLeadDataList('')
@@ -34,24 +34,24 @@ useEffect(() => {
         .catch((error) => {
             setLoading(false);
         });
-    }, [isStatusUpdated]);
+    }, [isStatusUpdated,companydata]);
 
     const onBackPressed = () => {
         navigation.pop();
     }
 
     const handleTaskPressed = (item) => {
-        console.log(item?.company_name,"item?.company_name")
+        // console.log(item?.company_name,"item?.company_name")
         navigation.navigate("AddCustomerTask", {customer_id: item.id, selected_type: 'L', Company_name:item?.company_name,},)
     }
 
     const handleInterestPressed = (item) => {
 
-        console.log('handleInterestPresse', item)
+        // console.log('handleInterestPresse', item)
         navigation.navigate('ProductInterest',  {task_id: '', customer_id:'', lead_id: item.id, 
                                                  screen: 'ProductInterest', name: item.name, task_name: '',
                                                  call_mode: 'L', Mobile:item.mobile_number,
-                                                 emails:item.email_id});
+                                                 emails:item.email_id ,Company_name:item?.company_name,});
     }
 
     const handleStatusPressed = (item) => {
@@ -83,6 +83,14 @@ useEffect(() => {
         }
     }
 // console.log(filterCustomers,"ujfejf")
+const counttsk = (customer_id,leadId) => {
+    console.log(leadId,"leadId")
+     getUserTasks('ALL', customer_id, leadId).then((res) => {
+                return res.data.length;
+            }).catch((error) => {
+                ToastMsg('Something went wrong', 'error');
+            });
+}
   return (
         <SafeAreaView style={{ flex: 1, marginBottom:0}}>
         <Loader visible={loading} />    
@@ -94,6 +102,7 @@ useEffect(() => {
         />
         <SearchInput label='Search lead/company/mobile/S:status ...'
                      serachFilter={serchFilter}
+                     data={companydata?companydata:''}
         />                
         
         <View style={{ flex: 1 }}>
@@ -104,6 +113,7 @@ useEffect(() => {
                                                 data={item} 
                                                 navigation={navigation} 
                                                 colour={"#fff9cc"}
+                                                Company_name={item.company_name}
                                                 title={item.company_name? item.company_name + ' [' + item.name + ']' : item.name}
                                                 subTitle={item.mobile_number? 'Mobile No: ' + item.mobile_number : 'Email: ' + item.email_id}
                                                 Mobile={item.mobile_number}
@@ -123,6 +133,9 @@ useEffect(() => {
                                                 handleIcon={()=>handleTaskPressed(item)}
                                                 handleIcon2={()=>handleInterestPressed(item)}
                                                 handleInfo={handleStatusPressed}
+                                                companydata={item.company_name==companydata?companydata:''}
+                                                tasklength={item.no_of_task}
+                                                pilength={item.no_of_pi} 
                                                  />}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}

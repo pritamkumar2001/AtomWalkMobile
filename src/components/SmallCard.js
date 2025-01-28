@@ -28,10 +28,10 @@ const SHADOWS = {
 const SmallCard = ({
   data,emails,Mobile,navigation, colour, title, subTitle, date, dateTitle, dateColour, 
   buttonTittle, buttonScreen, iconName, iconName2, iconScreen, handleIcon, handleIcon2, text1, text2, 
-  callMode, name, task_name, handleInfo, logo, phone, email, whatsApp
+  callMode, name, task_name, handleInfo, logo,companydata,Company_name,tasklength,pilength
 }) => {
     const cardColour = colour ? colour : colors.primary;
-
+// console.log(tasklength,"tasklength")
     const handleNavigation = () => {
       if (buttonScreen === 'UpdateInterest' || buttonScreen === 'UpdateTaskInterest') {
         navigation.navigate(buttonScreen, {
@@ -53,7 +53,7 @@ const SmallCard = ({
           task_name: task_name ? task_name : ''
         });
       } else if (buttonScreen === 'LeadTasks') {
-        navigation.navigate('CustomerTasks', { customer_id: '', name: data.name, lead_id: data.id, call_mode: 'L' });
+        navigation.navigate('CustomerTasks', { customer_id: '', name: data.name, lead_id: data.id, call_mode: 'L',Company_name:Company_name });
       } else if (buttonScreen === 'ViewOrderItem') {
         ToastMsg('Will be supported shortly !!!');
       } else {
@@ -80,26 +80,26 @@ const SmallCard = ({
         Alert.alert('Not Enabled');
       }
     };
-
-    const openWhatsApp = (Mobile) => {
-    if (Mobile){
-         Linking.openURL(`https://wa.me/${Mobile}`);
-    }
-    else{
-      ToastMsg('Please add Mobile Number in lead details');
-    }
-   
-    };
-
-    const openEmail = (emails) => {
-      if(emails){
-         Linking.openURL(`mailto:${emails}`);
+    const openWhatsApp = (Mobile, message) => {
+      if (Mobile) {
+          const encodedMessage = encodeURIComponent(message || "Hello, I would like to discuss your requirements!");
+          Linking.openURL(`https://wa.me/${Mobile}?text=${encodedMessage}`);
+      } else {
+          ToastMsg('Please add Mobile Number in lead details');
       }
-      else{
+  };
+  
+
+  const openEmail = (emails, subject, body) => {
+    if (emails) {
+        const encodedSubject = encodeURIComponent(subject || "Inquiry about your services");
+        const encodedBody = encodeURIComponent(body || "Hi, I would like to know more about your offerings.");
+        Linking.openURL(`mailto:${emails}?subject=${encodedSubject}&body=${encodedBody}`);
+    } else {
         ToastMsg('Please add Email Address in lead details');
-      }
-     
-    };
+    }
+};
+
 
     const openPhone = (Mobile) => {
       if(Mobile){
@@ -112,7 +112,7 @@ const SmallCard = ({
     };
 
     return (
-      <View style={[styles.cardContainer, { backgroundColor: cardColour }]}>
+      <View style={[styles.cardContainer, { backgroundColor:companydata? '#ffff':cardColour }]}>
         
   
         {/* Info Section */}
@@ -139,15 +139,21 @@ const SmallCard = ({
               <TouchableOpacity style={[styles.rectButton,{width:"47%"}]} onPress={handleNavigation}>
                 {!logo && <FontAwesome5 name="th-list" size={16} color="#aaa" />}
                 <Text style={styles.buttonText}>{buttonTittle}</Text>
+                {tasklength&&<View style={styles.badgeContainer}>
+                  <Text style={styles.badgeText}>{tasklength}</Text>
+                  </View>}
               </TouchableOpacity>
   
               {iconName2 && text2 && (
                 <TouchableOpacity
-                  style={styles.circleButton2}
+                  style={[styles.circleButton2,{width:"50%"}]}
                   onPress={handleIcon2 || handleDeleteNavigation}
                 >
                   <FontAwesome5 name="th-list" size={16} color="#aaa" />
                   <Text style={styles.circleButtonText}> Product {text2}</Text>
+                  {pilength&&<View style={styles.badgeContainer}>
+                  <Text style={styles.badgeText}>{pilength}</Text>
+                  </View>}
                 </TouchableOpacity>
               )}
               </View>
@@ -260,8 +266,8 @@ const SmallCard = ({
       marginTop: 16,
       flexDirection: 'row',
       alignItems:"center",
-      justifyContent:"space-between", // Ensure buttons stack instead of overflowing
-      gap: 10,
+      justifyContent:"center", // Ensure buttons stack instead of overflowing
+      gap: 5,
     },
     actionButtons: {
       flexDirection: 'row',
@@ -334,6 +340,22 @@ const SmallCard = ({
       fontSize: 14,
       fontWeight: '500',
       color: '#FFF',
+    },
+    badgeContainer: {
+      position: 'absolute',
+      top: -5, // Adjust as needed to position it at the top right
+      right: -5, // Adjust as needed
+      backgroundColor: '#5fadd4',
+      borderRadius: 10,
+      height: 20,
+      width: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    badgeText: {
+      color: 'white',
+      fontSize: 12,
+      fontWeight: 'bold',
     },
   });
   

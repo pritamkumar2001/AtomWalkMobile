@@ -21,13 +21,13 @@ const CardItem = ({
   iconName1,
   handleIconName1Press,
   iconName2,
-  iconScreen2
+  iconScreen2,pilength
 }) => {
   const sub_title = data.customer ? data.customer.name : data.gstn_number ? `GSTN ${data.gstn_number}` : data.address_line_1;
   const cardColour = colour ? colour : colors.primary;
 
   const handleNavigation = () => {
-    console.log('Screen name', screen);
+    // console.log('Screen name', screen);
     if (screen == 'CustomerTasks') {
       navigation.navigate('CustomerTasks', { customer_id: data.id, name: data.name, lead_id: '', call_mode: 'C' });
     } else if (screen == 'LeadTasks') {
@@ -46,7 +46,7 @@ const CardItem = ({
   };
 
   const handleIconNavigation2 = () => {
-    console.log('Icon Screen name', iconScreen2, data);
+    // console.log('Icon Screen name', iconScreen2, data);
     if (iconScreen2 == 'ViewInterest') {
       navigation.navigate(iconScreen2, { data: data, call_mode: callMode, delete_mode: 'Y' });
     } else if (iconScreen2 == 'InvoiceSendMail') {
@@ -120,6 +120,9 @@ const CardItem = ({
         <TouchableOpacity style={[styles.actionButton, { width: buttonTittle == 'Task list' ? '48%' : 'auto' }]}  onPress={handleNavigation}>
           <FontAwesome5 name="th-list" size={16} color="#aaa" />
           <Text style={styles.actionButtonText}>{buttonTittle}</Text>
+          {pilength&&<View style={styles.badgeContainer}>
+                  <Text style={styles.badgeText}>{pilength}</Text>
+                  </View>}
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.assignTaskButton, { backgroundColor: buttonTittle !== 'Product Interest' ? '#007bff' : 'red' ,width: buttonTittle != 'Product Interest' ? '48%' : 'auto' }] }
@@ -204,19 +207,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
-    maxWidth:300,
+    maxWidth:280,
   },
   cardSubText: {
     fontSize: 14,
     color: '#666',
     marginTop: 5,
-    maxWidth:300,
+    maxWidth:295,
   },
   cardSubTexts: {
     fontSize: 14,
     color: '#666',
     marginTop: 5,
-    maxWidth:300,
+    maxWidth:280,
     fontWeight: 'bold',
   },
   actionButtonsContainer: {
@@ -276,6 +279,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  badgeContainer: {
+    position: 'absolute',
+    top: -5, // Adjust as needed to position it at the top right
+    right: -5, // Adjust as needed
+    backgroundColor: '#5fadd4',
+    borderRadius: 10,
+    height: 20,
+    width: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  
 });
 
 export default CardItem;

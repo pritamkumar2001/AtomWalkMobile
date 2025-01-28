@@ -58,7 +58,7 @@ const totalVariations = Object.values(variationCount).reduce((sum, count) => sum
 const productPieData = Object.entries(variationCount).map(([variation, count], index) => ({
   name: `${variation.length > 15 ?`${variation.toUpperCase().slice(0, 15)}...`:variation.toUpperCase()} (${((count / totalVariations) * 100).toFixed(1)}%)`, // Show percentage
   population: count,
-  color: ["#f39c12", "#3498db", "#e74c3c", "#2ecc71", "#9b59b6"][index % 5], // Rotate colors
+  color: ["#f39c12", "#3498db", "#e74c3c", "#2ecc71", "#9b59b6","#a689b3"][index % 6], // Rotate colors
   legendFontColor: "#000",
   legendFontSize: 9,
 }));
@@ -97,7 +97,7 @@ const productPieData = Object.entries(variationCount).map(([variation, count], i
         <Text style={styles.chartTitle}>Category-wise Product Interest (Pie Chart)</Text>
         <PieChart
           data={pieData}
-          width={Dimensions.get("window").width - 40} // Full width minus some padding
+          width={Dimensions.get("window").width - 10} // Full width minus some padding
           height={220}
           chartConfig={{
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
@@ -110,7 +110,7 @@ const productPieData = Object.entries(variationCount).map(([variation, count], i
         <Text style={styles.chartTitle}>Top Product Interest (Pie Chart)</Text>
         <PieChart
           data={productPieData}
-          width={Dimensions.get("window").width - 40} // Full width minus some padding
+          width={Dimensions.get("window").width - 10} // Full width minus some padding
           height={220}
           chartConfig={{
             color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,

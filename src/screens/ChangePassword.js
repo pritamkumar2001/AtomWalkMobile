@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Animated, Easing } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../context/AuthContext';
+import Header from '../components/Header';
 
 const PinPassword = ({ navigation }) => {
   const [password, setPassword] = useState('');
@@ -57,9 +58,19 @@ const PinPassword = ({ navigation }) => {
     };
     fetchUserPin();
 }, []);
-
+const onBackPressed = () => {
+  navigation.pop();
+}
   return (
+    <>
+    <Header 
+            label={userPin?"Update Your PIN":"Set Your PIN"}
+            image=''
+            icon='arrow-left'
+            onPress={onBackPressed}   
+      /> 
     <View style={styles.container}>
+            
       <Text style={styles.title}>{userPin?"Update Your PIN":"Set Your PIN"}</Text>
       <TextInput
         style={styles.input}
@@ -96,6 +107,7 @@ const PinPassword = ({ navigation }) => {
         <Text style={styles.submitText}>Submit</Text>
       </TouchableOpacity>
     </View>
+    </>
   );
 };
 

@@ -18,6 +18,7 @@ const emails=route.params.emails;
   const subTitle = (route.params.call_mode=='L')? 'LEAD - '  + route.params.name : 'CUSTOMER: ' + route.params.name 
   const pageTitle =  route.params.task_name?'Interest For Task: ' + route.params.task_name :''
   const screen = route.params.screen
+  const company = route.params?.Company_name
   // console.log('param', route.params);
   useEffect(() => {
     setLoading(true);
@@ -114,7 +115,7 @@ const emails=route.params.emails;
             onPress={() => navigation.navigate(screen=='TaskInterest'?"UpdateTaskInterest":"UpdateInterest", 
                         {task_id: taskId, customer_id: customerId, lead_id: leadId, variation_name_id: '', 
                         variation_value: '', category_id: '', name: route.params.name,
-                        due_date: '', product_info: '', id: '', call_mode:route.params.call_mode})} 
+                        due_date: '', product_info: '', id: '', call_mode:route.params.call_mode,company_name:company})} 
             text={'Add Product Interest'} 
             bgColor={colors.primary} />  
   </SafeAreaView>

@@ -18,9 +18,10 @@ const CustomerTasks = ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [customerId, setCustomerId] = useState(route.params.customer_id);
   const [leadId, setLeadId] = useState(route.params.lead_id);
-  
+  // console.log(data,data.length,"data---->")
   const customer_name = route.params.name
   const refresh=route.params
+  const companyname=route.params?.Company_name
     useEffect(() => {
         setLoading(true);
         getUserTasks('ALL', customerId, leadId).then((res) => {
@@ -37,7 +38,7 @@ const CustomerTasks = ({ route, navigation }) => {
         if (customerId){
             navigation.navigate("AddCustomerTask", {customer_id: customerId, selected_type: 'C', })
         }else{
-            navigation.navigate("AddCustomerTask", {customer_id: leadId, selected_type: 'L', })
+            navigation.navigate("AddCustomerTask", {customer_id: leadId, selected_type: 'L',Company_name:companyname})
         }
     }
   
@@ -109,6 +110,7 @@ const CustomerTasks = ({ route, navigation }) => {
                                               handleDisplayPress={()=>{}}
                                               iconName1='preview' 
                                               handleIconName1Press={handleIconName1Press}
+
                                               />}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
