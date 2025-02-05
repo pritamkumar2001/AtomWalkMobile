@@ -101,7 +101,7 @@ const ProfileScreen = ({ navigation }) => {
     const [profile, setProfile] = useState([])
     const [isManager, setIsManager] = useState(false)
     const [userPin, setUserPin] = useState(null);
-    // console.log("data--->",userPin)
+    // console.log("data--->",profile)
 
     useEffect(() => {
       setLoading(true)
@@ -141,7 +141,7 @@ const ProfileScreen = ({ navigation }) => {
         <ProfileHeader>
           <ProfileImage source={{ uri: profile.image }} />
           <UserName>{profile.user_name}</UserName>
-          {profile.total_task&&<Designation>Total task : {profile.total_task}</Designation>}
+          <Designation>Total task : {profile.total_task||"NA"}</Designation>
           <EditProfileButton  onPress={() => navigation.navigate("ChangePassword")} >
             <EditProfileButtonText>{userPin?"Update Your PIN":"Set Your PIN"}</EditProfileButtonText>
           </EditProfileButton>

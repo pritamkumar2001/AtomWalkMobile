@@ -21,8 +21,9 @@ const CardItem = ({
   iconName1,
   handleIconName1Press,
   iconName2,
-  iconScreen2,pilength
+  iconScreen2,pilength,ProductInLength
 }) => {
+  // console.log(cname,"gghh")
   const sub_title = data.customer ? data.customer.name : data.gstn_number ? `GSTN ${data.gstn_number}` : data.address_line_1;
   const cardColour = colour ? colour : colors.primary;
 
@@ -44,7 +45,17 @@ const CardItem = ({
       navigation.navigate(screen, { data });
     }
   };
-
+const productInterest = () => {
+  // console.log(data&&data.customer&&data.customer.name,"data.id")
+  navigation.navigate('ProductInterest', {
+    task_id: '',
+    customer_id:data.id,
+    screen: 'ProductInterest',
+    name: data.name,
+    task_name: '',
+    call_mode: 'C'
+  });
+}
   const handleIconNavigation2 = () => {
     // console.log('Icon Screen name', iconScreen2, data);
     if (iconScreen2 == 'ViewInterest') {
@@ -134,6 +145,15 @@ const CardItem = ({
         </TouchableOpacity>
       </View>
       </View>
+     { buttonTittle !== 'Product Interest' &&<View style={[styles.cardConta,{width:"100%"}]}>
+      <TouchableOpacity style={[styles.actionButton ,{width:"100%"}]} onPress={() => productInterest()}>
+      <FontAwesome5 name="th-list" size={16} color="#aaa" />
+            <Text style={styles.actionButtonText}>Product Interest</Text>
+            {ProductInLength&&<View style={styles.badgeContainer}>
+                  <Text style={styles.badgeText}>{ProductInLength}</Text>
+                  </View>}
+          </TouchableOpacity>
+          </View>}
       {screen=="CustomerTasks"&& <View style={styles.topIconsContainer}>
           <TouchableOpacity onPress={() => openWhatsApp(data.mobile_number)} style={styles.iconButton}>
             <FontAwesome5 name="whatsapp" size={24} color="#25D366" />
@@ -175,6 +195,11 @@ const styles = StyleSheet.create({
   },
   cardContainers:{
     padding: 15,
+  },
+  cardConta:{
+    paddingLeft: 15,
+    paddingRight: 15,
+    // padding: 5,
   },
   cardContainer: {
     backgroundColor: '#fff',

@@ -1,5 +1,5 @@
 import { authAxios, authAxiosFilePost, authAxiosPost } from "./httpMethod";
-import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL, UpdateGeoLocation, getfiletotext } from "../constants";
+import { addLeadURL, getCustomerListURL, getLeadListURL, getLeadDataListURL, getCustomerDetailListURL, UpdateGeoLocation, getfiletotext, productListURL } from "../constants";
 import { getTaskInterestListURL, getVariationNameListURL, getProductCategoryListURL } from '../constants';
 import { getOrderListURL, updateTaskInterestURL, getLeadStatusListURL, getTaskTypeListURL } from '../constants';
 import { addTaskURL, updateTaskURL, userTaskListURL, getUserListURL, updateLeadStatusURL} from "../constants";
@@ -73,6 +73,10 @@ export function getLeadList(name) {
 export function getLeadDataList(name) {
     // console.log('getLeadList', name)
     return authAxios(getLeadDataListURL)
+}
+export function getproductlist(name) {
+    // console.log('getLeadList', name)
+    return authAxios(productListURL)
 }
 
 export function getCustomerLeadList(s_type, name) {

@@ -80,7 +80,8 @@ const CustomerScreen = ({ navigation }) => {
                                               handleDisplayPress={ handleViewOrders }
                                               icon='add-task'
                                               buttonTittle='Task list'
-                                              pilength={item.no_of_task}/>}
+                                              pilength={item.no_of_task==0?false:item.no_of_task}
+                                              ProductInLength={item.no_of_pi==0?false:item.no_of_pi}/>}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
             />

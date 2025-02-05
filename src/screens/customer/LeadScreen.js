@@ -134,8 +134,8 @@ const counttsk = (customer_id,leadId) => {
                                                 handleIcon2={()=>handleInterestPressed(item)}
                                                 handleInfo={handleStatusPressed}
                                                 companydata={item.company_name==companydata?companydata:''}
-                                                tasklength={item.no_of_task}
-                                                pilength={item.no_of_pi} 
+                                                tasklength={item.no_of_task==0?false:item.no_of_task}
+                                                pilength={item.no_of_pi==0?false:item.no_of_pi} 
                                                  />}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}

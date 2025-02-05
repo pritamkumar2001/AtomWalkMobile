@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Alert, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { SubInfo, CardTitle } from "./SubInfo";
@@ -7,6 +7,8 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { colors } from "../Styles/appStyle";
 import * as Linking from 'expo-linking';
 import ToastMsg from "./ToastMsg";
+import { getproductlist } from "../services/productServices";
+import ProductSelectionModal from "./CustomInput/ProductSelectionModal";
 
 const SIZES = {
   font: 14,
@@ -30,6 +32,8 @@ const SmallCard = ({
   buttonTittle, buttonScreen, iconName, iconName2, iconScreen, handleIcon, handleIcon2, text1, text2, 
   callMode, name, task_name, handleInfo, logo,companydata,Company_name,tasklength,pilength
 }) => {
+  const [visible, setVisible] = useState(false);
+  const [products, setProducts] = useState([]);
     const cardColour = colour ? colour : colors.primary;
 // console.log(tasklength,"tasklength")
     const handleNavigation = () => {
@@ -110,6 +114,21 @@ const SmallCard = ({
       }
     
     };
+    const onClose = () => {
+      setVisible(false);
+    }
+    const handleInfos = () => {
+      setVisible(true);
+    }
+     useEffect(() => {
+      getproductlist('')
+            .then((res) => {
+              setProducts(res.data)
+            })
+            .catch((error) => {
+             ToastMsg('Error in fetching product list');
+            });
+        }, []);
 
     return (
       <View style={[styles.cardContainer, { backgroundColor:companydata? '#ffff':cardColour }]}>
@@ -206,7 +225,11 @@ const SmallCard = ({
           <TouchableOpacity onPress={() => openPhone(Mobile)} style={styles.iconButton}>
             <FontAwesome5 name="phone" size={24} color="#34B7F1" />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleInfos()} style={styles.iconButton}>
+            <FontAwesome5 name="share" size={24} color="rgb(16, 90, 39)" />
+          </TouchableOpacity>
         </View>}
+        <ProductSelectionModal visible={visible} onClose={onClose} products={products}></ProductSelectionModal>
       </View>
     );
   };
