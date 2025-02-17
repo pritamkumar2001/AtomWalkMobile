@@ -23,8 +23,9 @@ const AddLeadScreen = ({route, navigation}) => {
         add_task: route.params.task? 'Y': 'N',
         task_type: '',
         task_date: '',
-
+        file_ref_num:'',
       });
+      console.log(inputs,"uuhd")
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [taskTypeList, setTaskTypeList] = useState([]);
@@ -33,10 +34,9 @@ const AddLeadScreen = ({route, navigation}) => {
         "Enterprise", "Solution", "Consultants", "Pvt.Ltd.", "Pvt.Ltd", "Technology",
         "Inc.", "LLC", "Corp", "Limited", "Holdings", "Group", "Industries",
         "Associates", "Partners", "Services", "Co.", "S.A.", "PLC", "GmbH", "SARL",
-        "Company", "Incorporated", "Corporation", "Firm", "LLP", "AG", "Ltd."
+        "Company", "Incorporated", "Corporation", "Firm", "LLP", "AG", "Ltd.","Pvt","Ltd"
     ];    
     const scan = route.params.scan;
-    console.log(taskTypeList,"hfbrhrfrf")
     useEffect(()=>{
    if(scan){
     onBackPressed()
@@ -63,7 +63,6 @@ const AddLeadScreen = ({route, navigation}) => {
 
         setLoading(false);
     }, []);
-
     const onSelect = (item) => {
         handleOnchange(item, 'task_type')
      }
@@ -104,6 +103,7 @@ const AddLeadScreen = ({route, navigation}) => {
       
         if (inputs.add_task == 'Y'){  
             if (!inputs.task_name) {
+
                 handleError('Please input Todo', 'task_name');
                 isValid = false;
           }
@@ -124,13 +124,13 @@ const AddLeadScreen = ({route, navigation}) => {
         });
         imagetotext(formData).then((res) => {
             setLoading(false);
-            ToastMsg('Lead Added Successfully');
+            ToastMsg('Lead Scan Successfully');
             const extractedText = res?.data?.text.filter(item => item.trim() !== "").join("\n");
-
+            const ref_name = res?.data?.ref_num   
                     // Assuming OCR returns a single block of text, we can process it
                     if (extractedText) {
                         // Call function to map the text to the form fields
-                        mapExtractedTextToFields(extractedText);
+                        mapExtractedTextToFields(extractedText,ref_name);
                         const options = extractedText.split("\n").map((item) => ({
                             label: item.trim(),
                             value: item.trim()
@@ -146,73 +146,56 @@ const AddLeadScreen = ({route, navigation}) => {
                     ToastMsg(error.response.data.detail, 'ERROR', 'error');
                 }
             });
-        // let myHeaders = new Headers();
-        // myHeaders.append("apikey", "FEmvQr5uj99ZUvk3essuYb6P5lLLBS20"); // Use your API key here
-        // myHeaders.append("Content-Type", "multipart/form-data");
-        // let requestOptions = {
-        //     method: "POST",
-        //     redirect: "follow",
-        //     headers: myHeaders,
-        //     body: file,
-        // };
-        // // Send a POST request to the OCR API
-        // fetch("https://api.apilayer.com/image_to_text/upload", requestOptions)
-        //     .then((response) => response.json())
-        //     .then((result) => {
-        //         const extractedText = result["all_text"];
-        //         console.log(extractedText,"hfbhfrhferufeuf")
-        //         if (extractedText) {
-        //             // Call function to map the text to the form fields
-        //             mapExtractedTextToFields(extractedText);
-        //             const options = extractedText.split("\n").map((item) => ({
-        //                 label: item.trim(),
-        //                 value: item.trim()
-        //             }));
-        //             setDropDownData(options)
-        //         }
-        //     })
-        //     .catch((error) => console.log("error", error));
+        
     };
     
     // Function to map extracted text to form fields
-    const mapExtractedTextToFields = (text) => {
-        // Parse the extracted text to find name, email, and mobile
-        // This is a simple approach; actual parsing may require custom logic
-        const lines = text.split("\n");
-        // console.log(lines,"ufuhfhru----------->")
+    const mapExtractedTextToFields = (text,num) => {
+        const lines = text.split("\n").map(line => line.trim()).filter(line => line !== "");
+        
         let name = "";
         let mobile_number = "";
         let email_id = "";
         let company_name = "";
+    
+        const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b/;
+        const phoneRegex = /(?:\+\d{1,3}[-.\s]?)?(?:\d{10,12}|\d{5}[-.\s]?\d{5})/;
+        
+        let firstString = "";  // Holds the first non-empty string for fallback
+    
         lines.forEach(line => {
-            // Detect email
-            if (line.includes("@")) {
-                email_id = line.trim();
+            if (emailRegex.test(line)) {
+                email_id = emailRegex.exec(line)[0];
+            } else if (phoneRegex.test(line) && mobile_number === "") {
+                mobile_number = line.replace(/\D/g, '').trim();
+            } else if (!name && line.match(/^[A-Za-z\s]+$/) && line.length < 30) {
+                name = line;
+            } else if (isCompanyName(line)) {
+                company_name = line;
             }
-            // Detect mobile number (simple regex for mobile numbers)
-            else if (line.match(/^\d{9,12}$/)) {
-                mobile_number = line.trim();
-            } else if (line.match(/(?:\+\d{1,3}-)?\d{5} ?\d{5}/)) {
-                mobile_number = line.replace(/\D/g, '').trim(); // Remove non-digit characters
             
-            } else if (!name) {
-                // Set the first non-empty line as the name
-                name = line.trim();
+            // Save the first meaningful string as a fallback name
+            if (!firstString && !emailRegex.test(line) && !phoneRegex.test(line) && !isCompanyName(line)) {
+                firstString = line;
             }
-            else if  (isCompanyName(line)) {
-                company_name = line.trim();
-            } 
         });
     
-        // Update the inputs with extracted data
+        // Fallback: If no name was found, use the first meaningful string
+        if (!name) {
+            name = firstString;
+        }
+    
         setInputs(prevState => ({
             ...prevState,
             name: name,
             mobile_number: mobile_number,
             email_id: email_id,
-            company_name:company_name,
+            company_name: company_name,
+            file_ref_num:num,
         }));
     };
+    
+    
     
 
     const onBackPressed = async () => {
@@ -243,7 +226,7 @@ const AddLeadScreen = ({route, navigation}) => {
         
         addLead(inputs).then((res) => {
             setLoading(false);
-            ToastMsg('Lead Scan Successfully');
+            ToastMsg('Lead Added Successfully');
             // delete todo
             navigation.dispatch(CommonActions.goBack())
             // navigation.navigate('Task');
@@ -266,12 +249,6 @@ const AddLeadScreen = ({route, navigation}) => {
     };
     const handleError = (error, input) => {
         setErrors(prevState => ({...prevState, [input]: error}));
-    };
-    // console.log(inputs,"data--------->")
-  
-
-    const handleSelect = (value, field) => {
-        setInputs((prevState) => ({ ...prevState, [field]: value }));
     };
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>

@@ -19,6 +19,7 @@ import OrderList from '../screens/customer/OrderList'
 import CompanyInfoScreen from '../screens/CompanyInfoScreen';
 import LeadStatus from '../screens/customer/LeadStatus';
 import Status from '../screens/task/Status';
+import ProductCatalog from '../components/ProductCatalog';
 
 const ProfileStack = createNativeStackNavigator();
 export function ProfileStackScreen() {
@@ -101,6 +102,7 @@ export function HomeStackScreen() {
       <HomeStack.Screen name="LeadStatus" component={LeadStatus} />
       <HomeStack.Screen name="Status" component={Status} />
       <HomeStack.Screen name="ChangePassword" component={ChangePassword} />
+      <HomeStack.Screen name="ProductCatalog" component={ProductCatalog} />
     </HomeStack.Navigator>
   );
 }

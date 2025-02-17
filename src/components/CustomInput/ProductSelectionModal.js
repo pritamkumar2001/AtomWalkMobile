@@ -7,20 +7,20 @@ const ProductSelectionModal = ({ visible, onClose, products }) => {
 
     const toggleSelection = (product) => {
         setSelectedProducts((prev) => {
-            if (prev.includes(product.image)) {
-                return prev.filter((item) => item !== product.image);
+            if (prev.includes(product.product_url)) {
+                return prev.filter((item) => item !== product.product_url);
             } else {
-                return [...prev, product.image];
+                return [...prev, product.product_url];
             }
         });
     };
 
     const shareViaWhatsApp = () => {
         if (selectedProducts.length > 0) {
-            const selectedItems = products.filter((product) => selectedProducts.includes(product.image));
+            const selectedItems = products.filter((product) => selectedProducts.includes(product.product_url));
             
             const message = selectedItems
-                .map((product) => `${product.product_name}: ${product.image}`)
+                .map((product) => `${product.product_name}: ${product.product_url}`)
                 .join("\n");
     
             const url = `https://wa.me/?text=${encodeURIComponent("Check out these products:\n" + message)}`;
@@ -46,7 +46,7 @@ const ProductSelectionModal = ({ visible, onClose, products }) => {
                             <TouchableOpacity onPress={() => toggleSelection(item)} style={{ flexDirection: "row", alignItems: "center", marginBottom: 10 }}>
                                 <Image source={{ uri: item.image }} style={{ width: 50, height: 50, marginRight: 10, borderRadius: 5 }} />
                                 <Text>{item.product_name}</Text>
-                                {selectedProducts.includes(item.image) && <Ionicons name="checkmark-circle" size={24} color="green" style={{ marginLeft: "auto" }} />}
+                                {selectedProducts.includes(item.product_url) && <Ionicons name="checkmark-circle" size={24} color="green" style={{ marginLeft: "auto" }} />}
                             </TouchableOpacity>
                         )}
                     />
