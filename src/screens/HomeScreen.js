@@ -104,6 +104,16 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.listText}>Product Interest</Text>
               </TouchableOpacity>
             )}
+            {isManagers && (
+            <TouchableOpacity
+              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
+              onPress={() => navigation.navigate('ProductCatalog')}
+            >
+              <View style={styles.iconBackground}>
+                <Entypo name="shop" size={30} color="#fff" />
+              </View>
+              <Text style={styles.listText}>Product Catalogue</Text>
+            </TouchableOpacity>)}
             <TouchableOpacity
               style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
               onPress={() => navigation.navigate('Company')}
@@ -113,15 +123,6 @@ const HomeScreen = ({ navigation }) => {
               </View>
               <Text style={styles.listText}>Company Info</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={[styles.listItem, { backgroundColor: '#e1e5fc' }]}
-              onPress={() => navigation.navigate('ProductCatalog')}
-            >
-              <View style={styles.iconBackground}>
-                <Icon name="business-outline" size={30} color="#fff" />
-              </View>
-              <Text style={styles.listText}>Product Catalog</Text>
-            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </View>

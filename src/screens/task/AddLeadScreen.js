@@ -35,7 +35,7 @@ const AddLeadScreen = ({route, navigation}) => {
         "Inc.", "LLC", "Corp", "Limited", "Holdings", "Group", "Industries",
         "Associates", "Partners", "Services", "Co.", "S.A.", "PLC", "GmbH", "SARL",
         "Company", "Incorporated", "Corporation", "Firm", "LLP", "AG", "Ltd.","Pvt","Ltd"
-    ];    
+    ]; 
     const scan = route.params.scan;
     useEffect(()=>{
    if(scan){
@@ -126,11 +126,12 @@ const AddLeadScreen = ({route, navigation}) => {
             setLoading(false);
             ToastMsg('Lead Scan Successfully');
             const extractedText = res?.data?.text.filter(item => item.trim() !== "").join("\n");
-            const ref_name = res?.data?.ref_num   
+            const ref_name = res?.data?.ref_num;
+            const scandata = res?.data;   
                     // Assuming OCR returns a single block of text, we can process it
                     if (extractedText) {
                         // Call function to map the text to the form fields
-                        mapExtractedTextToFields(extractedText,ref_name);
+                        mapExtractedTextToFields(extractedText,ref_name,scandata);
                         const options = extractedText.split("\n").map((item) => ({
                             label: item.trim(),
                             value: item.trim()
@@ -150,7 +151,7 @@ const AddLeadScreen = ({route, navigation}) => {
     };
     
     // Function to map extracted text to form fields
-    const mapExtractedTextToFields = (text,num) => {
+    const mapExtractedTextToFields = (text,num,scandata) => {
         const lines = text.split("\n").map(line => line.trim()).filter(line => line !== "");
         
         let name = "";
@@ -187,10 +188,10 @@ const AddLeadScreen = ({route, navigation}) => {
     
         setInputs(prevState => ({
             ...prevState,
-            name: name,
-            mobile_number: mobile_number,
-            email_id: email_id,
-            company_name: company_name,
+            name:scandata?.f_data_list?.name[0]||name,
+            mobile_number:scandata?.f_data_list?.mobile_number[0]|| mobile_number,
+            email_id:scandata?.f_data_list?.email_id[0]|| email_id,
+            company_name: scandata?.f_data_list?.company_name[0]||company_name,
             file_ref_num:num,
         }));
     };
@@ -205,6 +206,8 @@ const AddLeadScreen = ({route, navigation}) => {
             allowsEditing: true,
             base64: true,
             allowsMultipleSelection: false,
+            quality: 1, // Set the quality to the highest
+            exif: true, // Include EXIF data
         });
     
         // Check if the image was captured successfully
@@ -263,13 +266,14 @@ const AddLeadScreen = ({route, navigation}) => {
       <ScrollView contentContainerStyle={{paddingTop: 5, paddingHorizontal: 10}}>
         <>
         <View style={{marginVertical: 10}}>
-       {dropDownData.length > 0 ?<DropDown2
+       {/* {dropDownData.length > 0 ?<DropDown2
                     inputvalue={inputs.name}
                     inputlabel="Enter Lead name"
                     data={dropDownData}
                     onSelect={onSelect}  
                 />
-           : <TxtInput
+           :  */}
+           <TxtInput
                 onChangeText={text => handleOnchange(text, 'name')}
                 onFocus={() => handleError(null, 'name')}
                 iconName="account-outline"
@@ -277,7 +281,7 @@ const AddLeadScreen = ({route, navigation}) => {
                 placeholder="Enter Lead name"
                 error={errors.name}
                 defaultValue={inputs.name}
-            />}
+            />
             <TxtInput
                 onChangeText={text => handleOnchange(text, 'company_name')}
                 onFocus={() => handleError(null, 'company_name')}
